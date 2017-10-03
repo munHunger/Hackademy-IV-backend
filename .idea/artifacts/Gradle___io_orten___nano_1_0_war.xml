@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="Gradle : io.orten : nano-1.0.war">
-    <output-path>$PROJECT_DIR$/build</output-path>
+    <output-path>$PROJECT_DIR$/../tomcat/webapps</output-path>
     <properties id="gradle-properties">
       <options external-project-path="$PROJECT_DIR$" />
     </properties>
