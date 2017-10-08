@@ -3,9 +3,8 @@ package io.orten.nano.implementation;
 import io.orten.nano.model.Organization;
 import io.orten.nano.utility.DataAccess;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
 
 
 public class API {
@@ -21,5 +20,6 @@ public class API {
                 return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
             }
         }
+
     }
 

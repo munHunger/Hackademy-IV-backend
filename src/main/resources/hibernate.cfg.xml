@@ -22,7 +22,7 @@
             root
         </property>
         <property name="hibernate.connection.password">
-           ishishish
+           root
         </property>
         <!-- for debugging, it is nice to be able to see what SQL is executed by hibernate, so I usually leave this on true -->
         <property name="show_sql">
@@ -30,5 +30,6 @@
         </property>
         <!-- List of all classes that you want to be able to save in the database (the current one is just an example) -->
         <mapping class="io.orten.nano.model.Organization"/>
+        <mapping class="io.orten.nano.model.Project"/>
     </session-factory>
 </hibernate-configuration>
