@@ -33,6 +33,17 @@ public class DataAccess {
                 s.getTransaction().commit();
             }
         }
+
+    public static Session getSession() throws Exception {
+
+        if(sessionFactory == null)
+            init();
+
+        Session session = sessionFactory.openSession();
+        return session;
+
+
+    }
     }
 
 
