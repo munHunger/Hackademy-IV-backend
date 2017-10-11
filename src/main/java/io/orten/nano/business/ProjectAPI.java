@@ -1,8 +1,7 @@
-package io.orten.nano;
-import io.orten.nano.utility.DataAccess;
+package io.orten.nano.business;
+import io.orten.nano.util.Database;
 
 import io.orten.nano.model.*;
-import io.orten.nano.utility.DataAccess;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,10 +22,10 @@ public class ProjectAPI {
     @GET
     @Path("/get/project/{projectID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProject(@PathParam("projectID") long projectID) {
+    public Response getProject(@PathParam("projectID") String projectID) {
 
         try {
-            Session session = DataAccess.getSession();
+            Session session = Database.getSession();
 
 
             Project project = session.get(Project.class, projectID);
@@ -47,7 +46,7 @@ public class ProjectAPI {
     public Response getProjects() {
 
         try {
-            Session session = DataAccess.getSession();
+            Session session = Database.getSession();
 
 
             List projects = session.createQuery("from Project").list();
@@ -68,11 +67,11 @@ public class ProjectAPI {
     public Response getProjects(@PathParam("projectName") String projectName) {
 
         try {
-            Session session = DataAccess.getSession();
+            Session session = Database.getSession();
 
 
-            Query query = session.createQuery("from Project where title like : projectName");
-            query.setParameter("projectName ", "%" + projectName + "%");
+            Query query = session.createQuery("from Project where name like :projectName");
+            query.setParameter("projectName", "%" + projectName + "%");
 
             List projects = query.list();
             session.close();
@@ -88,7 +87,7 @@ public class ProjectAPI {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Project project) {
         try {
-            DataAccess.saveObject(project);
+            Database.saveObject(project);
             return Response.status(204).build();
         } catch (Exception e) {
             return Response.status(500).build();
@@ -101,7 +100,7 @@ public class ProjectAPI {
     public Response deleteProject(@PathParam("projectID") long projectID) {
 
         try {
-            Session session = DataAccess.getSession();
+            Session session = Database.getSession();
             Transaction tx = null;
             try {
                 tx = session.beginTransaction();

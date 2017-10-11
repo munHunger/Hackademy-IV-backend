@@ -15,7 +15,7 @@
         Also, note twb part. this is the database schema that must be created before running the application-->
         <property
                 name="hibernate.connection.url">
-            jdbc:mysql://localhost:3306/twb?useSSL=false
+            jdbc:mysql://localhost:3306/ortendb?useSSL=false
         </property>
         <!-- Username and password of the user created during setup of the mysql server -->
         <property name="hibernate.connection.username">

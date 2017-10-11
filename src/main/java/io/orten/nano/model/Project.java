@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
@@ -18,76 +16,169 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "projectID")
-    public long projectID;
+    private String projectID;
 
     @Column(name = "name")
-    public String name;
+    private String name;
 
     @Column(name = "fromDate")
-    //@Temporal(TemporalType.DATE)
-    public Date fromDate;
+    private Date fromDate;
 
-    @Column(name = "endDate")
-    //@Temporal(TemporalType.DATE)
-    public Date endDate;
+    @Column(name = "toDate")
+    private Date toDate;
 
     @Column(name = "longitude")
-    public double longitude;
+    private float longitude;
 
     @Column(name = "latitude")
-    public double latitude;
+    private float latitude;
 
     @Column(name = "amountToBeRaised")
-    public double amountToBeRaised;
+    private double amountToBeRaised;
 
     @Column(name = "description")
-    public String description;
+    private String description;
 
-    @Column(name = "imageOrVideo")
-    public String imageOrVideo;
+    @Column(name = "imageOrvideo")
+    private String imageOrvideo;
 
     @Column(name = "projectManager")
-    public String projectManager;
+    private String projectManager;
 
     @Column(name = "nationalProject")
-    public boolean nationalProject;
+    private boolean nationalProject;
 
     @Column(name = "recurringProject")
-    public boolean recurringProject;
+    private boolean recurringProject;
 
-    @Column(name = "recurringProjectDate")
-    //@Temporal(TemporalType.DATE)
-    public Date recurringProjectDate;
+    @Column(name = "recurringProjectPublishingDate")
+    private Date recurringProjectPublishingDate;
 
+    @Column(name = "donorID")
+    private int donorID;
     @Column(name = "organizationID")
-    public String organizationID;
-
-
-
-    public Project(long projectID, String name, Date fromDate, Date endDate, double longitude, double latitude,
-                   double amountToBeRaised, String description, String imageOrVideo, String projectManager,
-                   boolean nationalProject, boolean recurringProject, Date recurringProjectDate, String organizationID)
-
-
-
-    {
-        this.projectID = projectID;
-        this.name = name;
-        this.fromDate = fromDate;
-        this.endDate = endDate;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.amountToBeRaised = amountToBeRaised;
-        this.description = description;
-        this.imageOrVideo = imageOrVideo;
-        this.projectManager = projectManager;
-        this.nationalProject = nationalProject;
-        this.recurringProject =recurringProject;
-        this.recurringProjectDate = recurringProjectDate;
-        this.organizationID = organizationID;
-    }
+    private String organizationID;
 
     public Project(){}
 
+    public String getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(String projectID) {
+        this.projectID = projectID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getAmountToBeRaised() {
+        return amountToBeRaised;
+    }
+
+    public void setAmountToBeRaised(double amountToBeRaised) {
+        this.amountToBeRaised = amountToBeRaised;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageOrvideo() {
+        return imageOrvideo;
+    }
+
+    public void setImageOrvideo(String imageOrvideo) {
+        this.imageOrvideo = imageOrvideo;
+    }
+
+    public String getProjectManager() {
+        return projectManager;
+    }
+
+    public void setProjectManager(String projectManager) {
+        this.projectManager = projectManager;
+    }
+
+    public boolean isNationalProject() {
+        return nationalProject;
+    }
+
+    public void setNationalProject(boolean nationalProject) {
+        this.nationalProject = nationalProject;
+    }
+
+    public boolean isRecurringProject() {
+        return recurringProject;
+    }
+
+    public void setRecurringProject(boolean recurringProject) {
+        this.recurringProject = recurringProject;
+    }
+
+    public Date getRecurringProjectPublishingDate() {
+        return recurringProjectPublishingDate;
+    }
+
+    public void setRecurringProjectPublishingDate(Date recurringProjectPublishingDate) {
+        this.recurringProjectPublishingDate = recurringProjectPublishingDate;
+    }
+
+    public int getDonorID() {
+        return donorID;
+    }
+
+    public void setDonorID(int donorID) {
+        this.donorID = donorID;
+    }
+
+    public String getOrganizationID() {
+        return organizationID;
+    }
+
+    public void setOrganizationID(String organizationID) {
+        this.organizationID = organizationID;
+    }
 }
 

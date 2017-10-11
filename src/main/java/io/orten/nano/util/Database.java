@@ -1,4 +1,4 @@
-package io.orten.nano.utility;
+package io.orten.nano.util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class DataAccess {
+public class Database {
 
         private static SessionFactory sessionFactory;
         private static void init(){

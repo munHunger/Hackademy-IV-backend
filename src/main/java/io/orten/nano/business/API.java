@@ -1,4 +1,4 @@
-package io.orten.nano.bussiness;
+package io.orten.nano.business;
 
 import io.orten.nano.model.Organization;
 
@@ -17,6 +17,6 @@ public class API {
     public Response saveInDatabase(Organization org)
     {
 
-        return new io.orten.nano.implementation.API().save(org);
+        return new io.orten.nano.impl.API().save(org);
     }
 }

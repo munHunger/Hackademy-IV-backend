@@ -1,7 +1,7 @@
-package io.orten.nano.implementation;
+package io.orten.nano.impl;
 
 import io.orten.nano.model.Organization;
-import io.orten.nano.utility.DataAccess;
+import io.orten.nano.util.Database;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
@@ -13,7 +13,7 @@ public class API {
         public Response save(Organization org)
         {
             try{
-                DataAccess.saveObject(org);
+                Database.saveObject(org);
                 return Response.status(HttpServletResponse.SC_CREATED).build();
             }
             catch(Exception e) {
