@@ -1,5 +1,6 @@
-package io.orten.nano.utility;
+package io.orten.nano.util;
 
+import io.orten.nano.model.Organization;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -7,7 +8,13 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class DataAccess {
+import java.util.List;
+
+//  Creates and manages connections with and transactions to the database
+
+public class Database {
+
+    //
 
         private static SessionFactory sessionFactory;
         private static void init(){
@@ -24,6 +31,8 @@ public class DataAccess {
             }));
         }
 
+    //saving an organization object to the database
+
         public static void saveObject(Object o){
             if(sessionFactory == null)
                 init();
@@ -33,6 +42,20 @@ public class DataAccess {
                 s.getTransaction().commit();
             }
         }
+    //updating an organization object
+
+        public static void updateOrganization(Object o){
+            if(sessionFactory == null)
+                init();
+            try(Session s = sessionFactory.openSession()){
+                s.beginTransaction();
+                s.update(o);
+                s.getTransaction().commit();
+            }
+
+        }
+
+
     }
 
 

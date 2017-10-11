@@ -1,39 +1,50 @@
 package io.orten.nano.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 import javax.persistence.*;
+import java.io.Serializable;
+/*
+  represents an organization raising fund for one or more projects
+ */
 
 @Entity
-@Table(name = "organization")
-public class Organization {
+@Table(name="organization")
+@SelectBeforeUpdate(value = true)
+@DynamicUpdate(value = true)
+public class Organization implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
-    @Column(name="organization_id")
+    @Column(name="organizationID")
     public String organizationId;
     @Column(name="name")
     public String name;
     @Column(name="address")
     public String address;
-    @Column(name="contact_Person_name")
+    @Column(name="contactPerson")
     public String contactPersonName;
-    @Column(name="contact_person_Phone_Number")
-    public String contactPersonTelephone;
-    @Column(name="contact_person_email")
+    @Column(name="contactEmail")
     public String contactPersonEmail;
     @Column(name="password")
     public String password;
-    @Column(name="billing_information")
+    @Column(name="billingInformation")
     public String billingInformation;
-    @Column(name="account_number")
+    @Column(name="account_Number")
     public String accountNumber;
     @Column(name="description")
     public String description;
+
+    //  required by hibernate
 
     public Organization()
     {
 
     }
+
+    //Bussiness Constructor
 
     public Organization(String organizationId, String name, String address, String contactPersonName,
                         String contactPersonTelephone, String contactPersonEmail, String password, String billingInformation,
@@ -42,7 +53,6 @@ public class Organization {
         this.name = name;
         this.address = address;
         this.contactPersonName = contactPersonName;
-        this.contactPersonTelephone = contactPersonTelephone;
         this.contactPersonEmail = contactPersonEmail;
         this.password = password;
         this.billingInformation = billingInformation;
@@ -50,6 +60,5 @@ public class Organization {
         this.description = description;
     }
 
-    /* create a constructor takes values */
 
 }
