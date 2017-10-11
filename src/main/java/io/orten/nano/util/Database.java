@@ -8,6 +8,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+<<<<<<< HEAD:src/main/java/io/orten/nano/util/Database.java
 import java.util.List;
 
 //  Creates and manages connections with and transactions to the database
@@ -15,6 +16,9 @@ import java.util.List;
 public class Database {
 
     //
+=======
+public class Database {
+>>>>>>> 29c96cb48b0cbdf93f00a1ff224dfdf2571e83a4:src/main/java/io/orten/nano/util/Database.java
 
         private static SessionFactory sessionFactory;
         private static void init(){
@@ -42,6 +46,7 @@ public class Database {
                 s.getTransaction().commit();
             }
         }
+<<<<<<< HEAD:src/main/java/io/orten/nano/util/Database.java
     //updating an organization object
 
         public static void updateOrganization(Object o){
@@ -56,6 +61,19 @@ public class Database {
         }
 
 
+=======
+
+    public static Session getSession() throws Exception {
+
+        if(sessionFactory == null)
+            init();
+
+        Session session = sessionFactory.openSession();
+        return session;
+
+
+    }
+>>>>>>> 29c96cb48b0cbdf93f00a1ff224dfdf2571e83a4:src/main/java/io/orten/nano/util/Database.java
     }
 
 
