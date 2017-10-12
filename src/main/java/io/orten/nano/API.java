@@ -7,8 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/")
-public class API
-{
+public class API{
     @GET
     @Path("/test")
     @Produces(MediaType.TEXT_PLAIN)

@@ -1,7 +1,6 @@
 package io.orten.nano;
 
 import io.orten.nano.model.Organization;
-import io.orten.nano.model.Project;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -45,13 +44,6 @@ public void saveorganaization()
         s.save(org);
     }
 
-    public void saveproject()
-
-    {
-        Project pro= new Project(5,"Amir", null,null ,678
-                , 765, 99999, "Socity", null, "Yahya",false, true, null, "Stockholm1");
-        s.save(pro);
-    }
 
     @After
     public void after(){
