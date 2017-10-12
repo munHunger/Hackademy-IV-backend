@@ -23,6 +23,8 @@ public class Database {
             }));
         }
 
+        //saving an organization object to the database
+
         public static void saveObject(Object o){
             if(sessionFactory == null)
                 init();
@@ -33,7 +35,24 @@ public class Database {
             }
         }
 
- //TODO: This need to be refactor
+    //updating an organization object
+
+    public static void updateOrganization(Object o){
+        if(sessionFactory == null)
+            init();
+        try(Session s = sessionFactory.openSession()){
+            s.beginTransaction();
+            s.update(o);
+            s.getTransaction().commit();
+        }
+
+    }
+
+
+
+
+
+    //TODO: This need to be refactor
     public static Session getSession() throws Exception {
         if(sessionFactory == null) {
             init();

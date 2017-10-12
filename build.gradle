@@ -20,5 +20,5 @@ dependencies {
 }
 
 war {
-    destinationDir(file("build/"))
+    destinationDir(file("../tomcat/webapps/"))
 }
