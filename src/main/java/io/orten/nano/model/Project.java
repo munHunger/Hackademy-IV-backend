@@ -9,7 +9,6 @@ import java.util.Date;
 @Entity
 @Table(name = "Project")
 public class Project {
-
     @Id
     //TODO: I think we should have long type and auto increment PK.
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,4 +126,3 @@ public class Project {
         this.organizationID = organizationID;
     }
 }
-

@@ -8,7 +8,6 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Database {
-
         private static SessionFactory sessionFactory;
         private static void init(){
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -34,16 +33,12 @@ public class Database {
             }
         }
 
+ //TODO: This need to be refactor
     public static Session getSession() throws Exception {
-
-        if(sessionFactory == null)
+        if(sessionFactory == null) {
             init();
-
+        }
         Session session = sessionFactory.openSession();
         return session;
-
-
     }
-    }
-
-
+ }
