@@ -3,11 +3,11 @@ package io.orten.nano.impl;
 import io.orten.nano.model.Organization;
 import io.orten.nano.util.Database;
 
-import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
 
 
-public class OrganizationService {
+public class API {
 
 
         public Response save(Organization org)
@@ -20,19 +20,6 @@ public class OrganizationService {
                 return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
             }
         }
-
-        public Response update(Organization org)
-        {
-           try{
-               Database.updateOrganization(org);
-               return Response.status(HttpServletResponse.SC_OK).build();
-           }
-           catch(Exception e){
-               return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-           }
-        }
-
-
 
     }
 
