@@ -10,3 +10,4 @@ build
 **/maven/
 **/build/
 src/test/resources/
+out
