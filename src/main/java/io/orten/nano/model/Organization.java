@@ -1,10 +1,5 @@
 package io.orten.nano.model;
-
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SelectBeforeUpdate;
-
 import javax.persistence.*;
-import java.io.Serializable;
 /*
   represents an organization raising fund for one or more projects
  */
@@ -21,17 +16,20 @@ public class Organization {
     public String accountNumber;
     public String billingInformation;
     public String description;
-
-    //  default constructor required by hibernate
+  
+    /*
+    * required by hibernate
+    */
 
     public Organization()
     {
 
     }
 
-    //Bussiness Constructor
-
-
+ /**
+    * Bussiness Constructor
+    
+  */
     public Organization(String organizationID, String organizationName, String organizationAddress, String contactPersonName, String contactPersonEmail, String accountNumber, String billingInformation, String description) {
         this.organizationID = organizationID;
         this.organizationName = organizationName;
@@ -43,3 +41,4 @@ public class Organization {
         this.description = description;
     }
 }
+

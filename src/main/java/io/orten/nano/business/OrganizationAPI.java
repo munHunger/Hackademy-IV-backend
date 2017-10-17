@@ -2,7 +2,6 @@ package io.orten.nano.business;
 
 import io.orten.nano.impl.OrganizationService;
 import io.orten.nano.model.Organization;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
@@ -21,7 +20,6 @@ public class OrganizationAPI {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveOrganization(Organization org)
     {
-
         return new OrganizationService().save(org);
     }
 
@@ -34,9 +32,9 @@ public class OrganizationAPI {
     {
         return new OrganizationService().update(org);
     }
-
+  
     //a method to retrieve an organization object from the database based on the organizationID
-
+  
     @GET
     @Path("/getorg")
     @Produces(MediaType.APPLICATION_JSON)
@@ -62,3 +60,4 @@ public class OrganizationAPI {
         return new io.orten.nano.impl.OrganizationService().delete(orgID);
     }
 }
+

@@ -2,14 +2,11 @@ package io.orten.nano.impl;
 
 import io.orten.nano.model.Organization;
 import io.orten.nano.util.Database;
-
 import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class OrganizationService {
-
-
+  
     public Response save(Organization org)
     {
         try{
@@ -58,7 +55,6 @@ public class OrganizationService {
             return Response.status(HttpServletResponse.SC_NOT_FOUND).entity(e.getMessage()).build();
         }
     }
-
 }
 
 

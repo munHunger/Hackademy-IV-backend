@@ -8,14 +8,13 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-
 import javax.xml.ws.Response;
 import java.util.List;
 
 //  Creates and manages connections with and transactions to the database
 
 public class Database {
-
+  
     private static SessionFactory sessionFactory;
 
     private static void init() {
@@ -43,7 +42,7 @@ public class Database {
             s.getTransaction().commit();
         }
     }
-
+  
     //updates an organization's object already saved in saved in the database
 
     public static void updateOrganization(Organization org) {
@@ -69,11 +68,10 @@ public class Database {
             List<Organization> list = q.getResultList();
             s.getTransaction().commit();
             return list;
-        }
-
-    }
-
-    //gets all the organization's objects  from the database
+        }      
+     }
+      
+    //gets all the organization objects from the database
 
     public static List<Organization> getAllOrganizations(){
         if (sessionFactory == null)
@@ -84,8 +82,6 @@ public class Database {
             List list = q.getResultList();
             s.getTransaction().commit();
             return list;
-
-
         }
     }
 
