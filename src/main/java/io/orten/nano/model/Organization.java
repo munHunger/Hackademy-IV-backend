@@ -2,12 +2,12 @@ package io.orten.nano.model;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
-
 import javax.persistence.*;
 import java.io.Serializable;
-/*
-  represents an organization raising fund for one or more projects
- */
+
+/**
+* represents an organization raising fund for one or more projects
+*/
 
 @Entity
 @Table(name="organization")
@@ -26,26 +26,28 @@ public class Organization implements Serializable{
     public String address;
     @Column(name="contactPerson")
     public String contactPersonName;
-    @Column(name="contactEmail")
+    @Column(name="contactPersonEmail")
     public String contactPersonEmail;
     @Column(name="password")
     public String password;
     @Column(name="billingInformation")
     public String billingInformation;
-    @Column(name="account_Number")
+    @Column(name="accountNumber")
     public String accountNumber;
     @Column(name="description")
     public String description;
 
-    //  required by hibernate
+    /*
+    * required by hibernate
+    */
 
     public Organization()
     {
 
     }
-
-    //Bussiness Constructor
-
+    /**
+    * Bussiness Constructor
+    */
     public Organization(String organizationId, String name, String address, String contactPersonName,
                         String contactPersonTelephone, String contactPersonEmail, String password, String billingInformation,
                         String accountNumber, String description) {
@@ -59,6 +61,4 @@ public class Organization implements Serializable{
         this.accountNumber = accountNumber;
         this.description = description;
     }
-
-
 }

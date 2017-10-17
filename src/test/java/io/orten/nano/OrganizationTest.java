@@ -12,10 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class OrganizationTest {
-  private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     private Session s;
     @Before
-    public void before(){
+    public void before() {
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                     .configure("hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
                     .build();
@@ -23,27 +23,22 @@ public class OrganizationTest {
             Metadata md = mds.buildMetadata();
             sessionFactory= md.buildSessionFactory();
             //Make sure that the service registry is destroyed on shutdown by adding a shutdown hook to the runtime
-        s = sessionFactory.openSession();
-        s.beginTransaction();
+            s = sessionFactory.openSession();
+            s.beginTransaction();
             Runtime.getRuntime().addShutdownHook(new Thread(() ->
             {
                 StandardServiceRegistryBuilder.destroy(registry);
             }));
-        }
-
-
-
+    }
 
     @Test
-public void saveorganaization()
-
+    public void saveorganaization()
     {
         Organization org= new Organization("67","microsoft", "NY", "nwerme","0989769865"
                 , "mdf@gmail.com", "newpassword45", "brooklyn",
                 "154678", "very successful organisation");
         s.save(org);
     }
-
 
     @After
     public void after(){
