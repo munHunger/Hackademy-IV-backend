@@ -16,15 +16,16 @@ public class Database {
             MetadataSources mds = new MetadataSources(registry);
             Metadata md = mds.buildMetadata();
             sessionFactory = md.buildSessionFactory();
-            //Make sure that the service registry is destroyed on shutdown by adding a shutdown hook to the runtime
+            //  Make sure that the service registry is destroyed on shutdown by adding a shutdown hook to the runtime
             Runtime.getRuntime().addShutdownHook(new Thread(() ->
             {
                 StandardServiceRegistryBuilder.destroy(registry);
             }));
         }
 
-        //saving an organization object to the database
-
+        /**
+         * saving an organization object to the database
+        */
         public static void saveObject(Object o){
             if(sessionFactory == null)
                 init();
@@ -35,29 +36,29 @@ public class Database {
             }
         }
 
-    //updating an organization object
+        /**
+         * updating an organization object
+        */
 
-    public static void updateOrganization(Object o){
-        if(sessionFactory == null)
-            init();
-        try(Session s = sessionFactory.openSession()){
-            s.beginTransaction();
-            s.update(o);
-            s.getTransaction().commit();
+        public static void updateOrganization(Object o){
+            if(sessionFactory == null)
+                init();
+            try(Session s = sessionFactory.openSession()){
+                s.beginTransaction();
+                s.update(o);
+                s.getTransaction().commit();
+            }
         }
 
-    }
+        /**
+        * TODO: This need to be refactor
+        */
 
-
-
-
-
-    //TODO: This need to be refactor
-    public static Session getSession() throws Exception {
-        if(sessionFactory == null) {
-            init();
+        public static Session getSession() throws Exception {
+            if(sessionFactory == null) {
+                init();
+            }
+            Session session = sessionFactory.openSession();
+            return session;
         }
-        Session session = sessionFactory.openSession();
-        return session;
-    }
  }
