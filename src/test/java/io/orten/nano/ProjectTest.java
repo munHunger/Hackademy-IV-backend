@@ -17,12 +17,11 @@ public class ProjectTest {
     @Before
     public void before(){
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
+                .configure("hibernate.cfg.xml")
                 .build();
         MetadataSources mds = new MetadataSources(registry);
         Metadata md = mds.buildMetadata();
         sessionFactory= md.buildSessionFactory();
-        //Make sure that the service registry is destroyed on shutdown by adding a shutdown hook to the runtime
         s = sessionFactory.openSession();
         s.beginTransaction();
         Runtime.getRuntime().addShutdownHook(new Thread(() ->
@@ -33,14 +32,13 @@ public class ProjectTest {
 
     @Test
 
-   /* public void saveproject()
+    /*public void saveoroject()
 
-    {
-        Project pro= new Project(5,"Amir", null,null ,678
-                , 765, 99999, "Socity", null, "Yahya",false, true, null, "Stockholm1");
+       {
+        Project pro= new Project("Pro5","Eden Foundation", null,null ,884.44, 1100, 30000, "CAJA", null, "Yahya",true, false, null, "ABD-1002");
         s.save(pro);
-    }*/
-
+       }
+*/
     @After
     public void after(){
         s.getTransaction().commit();

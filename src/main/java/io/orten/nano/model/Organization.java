@@ -4,19 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-/*
-  represents an organization raising fund for one or more projects
- */
 
 @Entity
 @Table(name="organization")
-/*@SelectBeforeUpdate(value = true)
-@DynamicUpdate(value = true)*/
-public class Organization {
 
+public class Organization {
     @Id
-    /*@GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;*/
     @Column(name="organizationID")
     public String organizationID;
     @Column(name="name")
@@ -36,20 +29,12 @@ public class Organization {
     @Column(name="description")
     public String description;
 
-    //  required by hibernate
-
-    public Organization()
-    {
-
-    }
-
-    //Bussiness Constructor
+    public Organization(){}
 
     public Organization(String organizationID, String name, String address, String contactPerson,
                         String contactPersonEmail, String password, String billingInformation,
-                        String accountNumber, String description) {
-
-
+                        String accountNumber, String description)
+    {
         this.organizationID = organizationID;
         this.name = name;
         this.address = address;
@@ -60,5 +45,4 @@ public class Organization {
         this.accountNumber = accountNumber;
         this.description = description;
     }
-
 }

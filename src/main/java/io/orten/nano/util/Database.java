@@ -11,21 +11,18 @@ public class Database {
         private static SessionFactory sessionFactory;
         private static void init(){
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure("hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
+                    .configure("hibernate.cfg.xml")
                     .build();
             MetadataSources mds = new MetadataSources(registry);
             Metadata md = mds.buildMetadata();
             sessionFactory = md.buildSessionFactory();
-            //Make sure that the service registry is destroyed on shutdown by adding a shutdown hook to the runtime
             Runtime.getRuntime().addShutdownHook(new Thread(() ->
             {
                 StandardServiceRegistryBuilder.destroy(registry);
             }));
         }
 
-        //saving an organization object to the database
-
-        public static void saveObject(Object o){
+            public static void saveObject(Object o){
             if(sessionFactory == null)
                 init();
             try(Session s = sessionFactory.openSession()){
@@ -35,9 +32,7 @@ public class Database {
             }
         }
 
-    //updating an organization object
-
-    public static void updateOrganization(Object o){
+        public static void updateOrganization(Object o){
         if(sessionFactory == null)
             init();
         try(Session s = sessionFactory.openSession()){
@@ -45,14 +40,8 @@ public class Database {
             s.update(o);
             s.getTransaction().commit();
         }
-
     }
 
-
-
-
-
-    //TODO: This need to be refactor
     public static Session getSession() throws Exception {
         if(sessionFactory == null) {
             init();

@@ -17,23 +17,18 @@ public class OrganizationTest {
     @Before
     public void before(){
             final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure("hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
+                    .configure("hibernate.cfg.xml")
                     .build();
             MetadataSources mds = new MetadataSources(registry);
             Metadata md = mds.buildMetadata();
             sessionFactory= md.buildSessionFactory();
-            //Make sure that the service registry is destroyed on shutdown by adding a shutdown hook to the runtime
-        s = sessionFactory.openSession();
-        s.beginTransaction();
+            s = sessionFactory.openSession();
+            s.beginTransaction();
             Runtime.getRuntime().addShutdownHook(new Thread(() ->
             {
                 StandardServiceRegistryBuilder.destroy(registry);
             }));
         }
-
-
-
-
     @Test
 public void saveorganaization()
 
@@ -42,7 +37,6 @@ public void saveorganaization()
                 "154678", "very successful organisation");
         s.save(org);
     }
-
 
     @After
     public void after(){
