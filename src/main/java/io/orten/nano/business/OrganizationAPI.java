@@ -2,115 +2,63 @@ package io.orten.nano.business;
 
 import io.orten.nano.impl.OrganizationService;
 import io.orten.nano.model.Organization;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
-
-@Path("/")
-public class OrganizationAPI {
-
-
-    public static List<Organization> o_list = new ArrayList<Organization>();
-
-    @GET
-    @Path("/get/organization/{organizationID}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrganization(@PathParam("organizationID") String organizationID) {
-        try {
-            Organization organization = OrganizationService.getOrganization(organizationID);
-            return Response.status(200).entity(organization).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
-    @GET
-    @Path("/get/organizations")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrganizations() {
-        try {
-            List<Organization> organizations = OrganizationService.getOrganizations();
-            return Response.status(200).entity(organizations).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
-    @GET
-    @Path("/get/organizations/{organizationName}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrganizationsByName(@PathParam("organizationName") String organizationName) {
-        try {
-            List<Organization> organizations = OrganizationService.getOrganizationsByName(organizationName);
-            return Response.status(200).entity(organizations).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
-    @POST
-    @Path("/post/organization")
-    public Response saveOrganization(Organization organization) {
-        try {
-            OrganizationService.saveOrganization(organization);
-            return Response.status(200).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
-    @DELETE
-    @Path("/delete/organization/{organizationID}")
-    public Response deleteOrganization(@PathParam("organizationID") String organizationID) {
-        try {
-            OrganizationService.deleteOrganization(organizationID);
-            return Response.status(200).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
-}
-
-
-
-
-
-
-
-
-
-/*package io.orten.nano.business;
-
-import io.orten.nano.impl.OrganizationService;
-import io.orten.nano.model.Organization;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+// end point for all Organization operations
 
 @Path("/org")
 public class OrganizationAPI {
 
+    //a method to save an organization object in the database
+
     @POST
-    @Path("/saveOrg")
+    @Path("/saveorg")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response saveInDatabase(Organization org)
+    public Response saveOrganization(Organization org)
     {
 
         return new OrganizationService().save(org);
     }
 
+    //a method to update an organization object that already saved in the database
+
     @PUT
-    @Path("/updateOrg")
+    @Path("/updateorg")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateOrg(Organization org)
     {
-      return new OrganizationService().update(org);
+        return new OrganizationService().update(org);
     }
-}*/
 
+    //a method to retrieve an organization object from the database based on the organizationID
 
+    @GET
+    @Path("/getorg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOrg(@QueryParam("orgID") String orgID){
+        return new OrganizationService().get(orgID);
+    }
 
+    //a method to retrieve allorgnizations objects that are  already saved in the database
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getall")
+    public Response getAllOrg(){
+        return new io.orten.nano.impl.OrganizationService().getAll();
+    }
+
+    //a method to delete an organization object from the database
+    @DELETE
+    @Consumes
+    @Path("/deleteorg")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteOrg(@QueryParam("orgID") String orgID){
+        return new io.orten.nano.impl.OrganizationService().delete(orgID);
+    }
+}

@@ -1,42 +1,28 @@
 package io.orten.nano.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
+
+import javax.persistence.*;
+import java.io.Serializable;
 /*
   represents an organization raising fund for one or more projects
  */
 
 @Entity
 @Table(name="organization")
-/*@SelectBeforeUpdate(value = true)
-@DynamicUpdate(value = true)*/
 public class Organization {
-
     @Id
-    /*@GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;*/
-    @Column(name="organizationID")
     public String organizationID;
-    @Column(name="name")
-    public String name;
-    @Column(name="address")
-    public String address;
-    @Column(name="contactPerson")
-    public String contactPerson;
-    @Column(name="contactPersonEmail")
+    public String organizationName;
+    public String organizationAddress;
+    public String contactPersonName;
     public String contactPersonEmail;
-    @Column(name="password")
-    public String password;
-    @Column(name="billingInformation")
-    public String billingInformation;
-    @Column(name="accountNumber")
     public String accountNumber;
-    @Column(name="description")
+    public String billingInformation;
     public String description;
 
-    //  required by hibernate
+    //  default constructor required by hibernate
 
     public Organization()
     {
@@ -45,20 +31,15 @@ public class Organization {
 
     //Bussiness Constructor
 
-    public Organization(String organizationID, String name, String address, String contactPerson,
-                        String contactPersonEmail, String password, String billingInformation,
-                        String accountNumber, String description) {
 
-
+    public Organization(String organizationID, String organizationName, String organizationAddress, String contactPersonName, String contactPersonEmail, String accountNumber, String billingInformation, String description) {
         this.organizationID = organizationID;
-        this.name = name;
-        this.address = address;
-        this.contactPerson = contactPerson;
+        this.organizationName = organizationName;
+        this.organizationAddress = organizationAddress;
+        this.contactPersonName = contactPersonName;
         this.contactPersonEmail = contactPersonEmail;
-        this.password = password;
-        this.billingInformation = billingInformation;
         this.accountNumber = accountNumber;
+        this.billingInformation = billingInformation;
         this.description = description;
     }
-
 }
