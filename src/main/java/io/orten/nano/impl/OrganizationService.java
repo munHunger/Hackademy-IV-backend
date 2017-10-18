@@ -2,19 +2,22 @@ package io.orten.nano.impl;
 
 import io.orten.nano.model.Organization;
 import io.orten.nano.util.Database;
-
 import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizationService {
-
 
     public Response save(Organization org)
     {
         try{
-            Database.saveOrganization(org);
-            return Response.status(HttpServletResponse.SC_CREATED).build();
+            if (Database.saveOrganization(org)== true) {
+                return Response.status(HttpServletResponse.SC_CREATED).build();
+            } else {
+                return Response.status(HttpServletResponse.SC_BAD_REQUEST).build();
+            }
         }
         catch(Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
@@ -35,27 +38,40 @@ public class OrganizationService {
     public Response get(String orgID)
     {
         try {
-            return Response.status(HttpServletResponse.SC_FOUND).entity(Database.getOrganization(orgID)).build();
-        }
-        catch(Exception e) {
-            return Response.status(HttpServletResponse.SC_NOT_FOUND).entity(e.getMessage()).build();
+            Organization org = Database.getOrganization(orgID);
+            if (org!=null) {
+                return Response.status(HttpServletResponse.SC_OK).entity(org).build();
+            }else {
+                return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
+            }
+        } catch(Exception e) {
+            return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 
     public Response getAll() {
         try {
-            return Response.status(HttpServletResponse.SC_FOUND).entity(Database.getAllOrganizations()).build();
+            List<Organization> organizations = new ArrayList<>();
+            organizations = Database.getAllOrganizations();
+            if (!(organizations.isEmpty())){
+            return Response.status(HttpServletResponse.SC_FOUND).entity(organizations).build();
+            } else {
+                return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
+            }
         } catch (Exception e) {
-            return Response.status(HttpServletResponse.SC_NO_CONTENT).entity(e.getMessage()).build();
+            return Response.status(HttpServletResponse.SC_NOT_FOUND).entity(e.getMessage()).build();
         }
     }
 
     public Response delete(String orgID){
         try{
-            return Response.status(HttpServletResponse.SC_GONE).entity(Database.deleteOrganization(orgID)).build();
+            if (Database.deleteOrganization(orgID)== true) {
+                return Response.status(HttpServletResponse.SC_OK).build();
+            }
+            else {return Response.status(HttpServletResponse.SC_NOT_FOUND).build();}
         }
         catch(Exception e){
-            return Response.status(HttpServletResponse.SC_NOT_FOUND).entity(e.getMessage()).build();
+            return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 

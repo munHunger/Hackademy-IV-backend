@@ -8,16 +8,17 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-
 import javax.xml.ws.Response;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-//  Creates and manages connections with and transactions to the database
-
+/**
+ * Creates and manages connections with and transactions to the database
+ */
 public class Database {
 
     private static SessionFactory sessionFactory;
-
     private static void init() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
@@ -32,64 +33,76 @@ public class Database {
         }));
     }
 
-    //saves an organization's object to the database
-
-    public static void saveOrganization(Organization org) {
+    /**
+     * saves an organization object to the database
+     */
+    public static boolean saveOrganization(Organization org) {
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
-            s.save(org);
-            s.getTransaction().commit();
+            String orgID=org.organizationID;
+            if (getOrganization(orgID)==null)
+            {
+                s.save(org);
+                s.getTransaction().commit();
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 
-    //updates an organization's object already saved in saved in the database
-
+    /**
+     * updates an organization object already saved in saved in the database
+     */
     public static void updateOrganization(Organization org) {
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
             s.update(org);
-            s.getTransaction().commit();
         }
-
     }
 
-    //gets one organization's object from the database based on its ID
-
-    public static List<Organization> getOrganization(String orgID) {
+    /**
+     * gets one organization object from the database based on its ID
+     */
+    public static Organization getOrganization(String orgID) {
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
+            List<Organization> list = new ArrayList<>();
             s.beginTransaction();
             Query q = s.createQuery("from Organization as org where org.organizationID = :orgID");
             q.setParameter("orgID", orgID);
-            List<Organization> list = q.getResultList();
-            s.getTransaction().commit();
-            return list;
+            list = q.getResultList();
+            if (list.isEmpty()){
+                return null;
+            } else {
+                return list.get(0);
+            }
         }
-
     }
-
-    //gets all the organization's objects  from the database
-
+    /**
+     * gets all the organizations' objects from the database
+     */
     public static List<Organization> getAllOrganizations(){
+        List<Organization> list= new ArrayList<>();
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
             Query q = s.createQuery("from Organization");
-            List list = q.getResultList();
-            s.getTransaction().commit();
+            list = q.getResultList();
             return list;
-
-
         }
     }
 
-    public static String deleteOrganization(String orgID){
+    /**
+     * delets an organization object from the database
+     */
+    public static boolean deleteOrganization(String orgID){
         if (sessionFactory== null)
             init();
         try(Session s = sessionFactory.openSession()){
@@ -97,14 +110,18 @@ public class Database {
             Query q = s.createQuery("from Organization org where org.organizationID = :orgID");
             q.setParameter("orgID",orgID);
             List<Organization> list = q.getResultList();
-            String name = list.get(0).organizationName;
-            String ID = list.get(0).organizationID;
-            s.delete(list.get(0));
-            s.getTransaction().commit();
-            return "Organization :"+name + " OrgnaizationID :"+ ID +" is deleted";
+            if (!list.isEmpty()){
+                s.delete(list.get(0));
+                s.getTransaction().commit();
+                return true ;
+            }
+            else {return false;}
         }
     }
 
+    /**
+     * belongs to ProjectService class
+     */
     public static Session getSession() throws Exception {
         if(sessionFactory == null) {
             init();

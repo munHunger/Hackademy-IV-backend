@@ -25,8 +25,13 @@
             true
         </property>
 
+        <property name="hbm2ddl.auto">
+            update
+        </property>
+
         <mapping class="io.orten.nano.model.Organization"/>
         <mapping class="io.orten.nano.model.Project"/>
+        <mapping class="io.orten.nano.model.User"/>
 
     </session-factory>
 </hibernate-configuration>
