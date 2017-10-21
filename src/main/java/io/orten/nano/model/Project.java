@@ -1,17 +1,17 @@
 package io.orten.nano.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Project")
+@Table(name = "project")
 public class Project {
 
     @Id
-    @Column(name = "projectID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private long Id;
+    @Column(name = "projectID",unique = true)
     private String projectID;
     @Column(name = "name")
     private String name;
@@ -25,6 +25,8 @@ public class Project {
     private float latitude;
     @Column(name = "amountToBeRaised")
     private double amountToBeRaised;
+    @Column(name = "raisedFunding")
+    private double raisedFunding;
     @Column(name = "description")
     private String description;
     @Column(name = "imageOrvideo")
@@ -41,6 +43,14 @@ public class Project {
     private String organizationID;
 
     public Project(){}
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
     public String getProjectID() {
         return projectID;
     }
@@ -65,9 +75,7 @@ public class Project {
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
-    public float getLongitude() {
-        return longitude;
-    }
+    public float getLongitude() {return longitude;}
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
@@ -82,6 +90,12 @@ public class Project {
     }
     public void setAmountToBeRaised(double amountToBeRaised) {
         this.amountToBeRaised = amountToBeRaised;
+    }
+    public double getRaisedFunding() {
+        return raisedFunding;
+    }
+    public void setRaisedFunding(double raisedFunding) {
+        this.raisedFunding = raisedFunding;
     }
     public String getDescription() {
         return description;

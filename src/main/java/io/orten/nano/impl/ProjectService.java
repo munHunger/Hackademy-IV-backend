@@ -11,59 +11,132 @@ import java.util.List;
 
 public class ProjectService {
 
-    public static List<Project> p_list = new ArrayList<Project>();
+    public static List<Project> projectList = new ArrayList<Project>();
 
-    public static Project getProject(String projectID) throws Exception {
-        Session session = Database.getSession();
-        Project project = session.get(Project.class, projectID);
-        session.close();
-        return project;
+    /**
+     *
+     * @param id
+     * @return project
+     * @throws Exception
+     */
+    public static Project getprojectbyid(long id) throws Exception {
+        Session session = null;
+        try {
+            session = Database.getSession();
+            Project project = session.get(Project.class, id);
+            session.close();
+            return project;
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
     }
 
-    public static List<Project> getProjects() throws Exception {
-            Session session = Database.getSession();
+    /**
+     *
+     * @param projectID
+     * @return project
+     * @throws Exception
+     */
+    public static Project getProjectByProjectId(String projectID) throws Exception {
+
+        Session session = null;
+        try {
+            session = Database.getSession();
+            Query query = session.createQuery("from Project where projectID like :projectID");
+            query.setParameter("projectID", projectID);
+            Project project = (Project) query.uniqueResult();
+            session.close();
+            return project;
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+    /**
+     *
+     * @return list of projects
+     * @throws Exception
+     */
+    public static List<Project> getListOfProjects() throws Exception {
+        Session session = null;
+        try {
+            session = Database.getSession();
             List projects = session.createQuery("from Project").list();
             session.close();
             return projects;
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
     }
 
+    /**
+     *
+     * @param projectName
+     * @return list of projects
+     * @throws Exception
+     */
     public static List getProjectsByName(String projectName) throws Exception {
-        Session session = Database.getSession();
-        Query query = session.createQuery("from Project where name like :projectName");
-        query.setParameter("projectName", "%" + projectName + "%");
-        List<Project> projects = query.list();
-        session.close();
-        return projects;
+        Session session = null;
+        try {
+            session = Database.getSession();
+            Query query = session.createQuery("from Project where name like :projectName");
+            query.setParameter("projectName", "%" + projectName + "%");
+            List<Project> projects = query.list();
+            session.close();
+            return projects;
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
     }
 
+    /**
+     *
+     * @param project
+     * @throws Exception
+     */
     public static void saveProject(Project project) throws Exception {
-        Session session = Database.getSession();
+        Session session = null;
         Transaction tx = null;
         try {
+            session = Database.getSession();
             tx = session.beginTransaction();
-            session.save(project);
+            session.saveOrUpdate(project);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             throw e;
         } finally {
-            session.close();
+            if (session != null) session.close();
         }
     }
 
-    public static void deleteProject(String projectID) throws Exception {
-        Session session = Database.getSession();
+    /**
+     *
+     * @param id
+     * @throws Exception
+     */
+    public static void deleteProject(Long id) throws Exception {
+        Session session = null;
         Transaction tx = null;
         try {
+            session = Database.getSession();
             tx = session.beginTransaction();
-            Project project= session.get(Project.class, projectID);
+            Project project = session.get(Project.class, id);
             session.delete(project);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             throw e;
         } finally {
-            session.close();
+            if (session != null) session.close();
         }
     }
 }
