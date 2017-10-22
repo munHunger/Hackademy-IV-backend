@@ -78,7 +78,6 @@ public class Database {
             init();
         try (Session s = sessionFactory.openSession()) {
             List<Organization> list = new ArrayList<>();
-            s.beginTransaction();
             Query q = s.createQuery("from Organization as org where org.organizationID = :orgID");
             q.setParameter("orgID", orgID);
             list = q.getResultList();
@@ -98,7 +97,6 @@ public class Database {
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
-            s.beginTransaction();
             Query q = s.createQuery("from Organization");
             list = q.getResultList();
             return list;

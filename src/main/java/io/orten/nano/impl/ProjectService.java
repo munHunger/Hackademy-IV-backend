@@ -100,7 +100,7 @@ public class ProjectService {
             Query query = session.createQuery("from Project where donor.userID= :donorID");
             query.setParameter("donorID",donorID);
             fundedProjects=query.getResultList();
-            if (fundedProjects.size()!=0){
+            if (!(fundedProjects.isEmpty())){
                 return fundedProjects;
             } else  return null;
 
