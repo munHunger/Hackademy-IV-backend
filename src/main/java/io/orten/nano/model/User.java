@@ -1,67 +1,79 @@
 package io.orten.nano.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
 
-/**
- * represents a donor
- */
 @Entity
-@Table
+@Table(name = "user")
 public class User {
 
-        @Id
-        private String userID;
-        private String firstName;
-        private String lastName;
+    @Id
+    @Column(name = "userID")
+    private long userID;
+    @Column(name = "userName", unique = true)
+    private String userName;
+    @Column(name = "firstName")
+    private String firstName;
+    @Column(name = "lastName")
+    private String lastName;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "emailAddress")
+    private String emailAddress;
+    @Column(name = "activityDate")
+    private Date activityDate;
+    @Column(name = "applicationID")
+    private String applicationID;
 
-        /**
-         * default constructor required by hibernate
-         */
-        public User(){
+    public User(){}
 
-        }
-
-        /**
-         * business constructor
-         */
-        public User(String userID, String firstName, String lastName) {
-            this.userID = userID;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-
-        /**
-         * getters methods
-         */
-        public String getUserID() {
-            return userID;
-        }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        /**
-         * setter methods
-         */
-        public void setUserID(String userID) {
-            this.userID = userID;
-        }
-
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-
-        }
+    public long getUserID() {return userID;}
+    public void setUserID(long userID) {
+        this.userID = userID;
     }
-
-
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+    public Date getActivityDate() {
+        return activityDate;
+    }
+    public void setActivityDate(Date activityDate) {
+        this.activityDate = activityDate;
+    }
+    public String getApplicationID() {
+        return applicationID;
+    }
+    public void setApplicationID(String applicationID) {
+        this.applicationID = applicationID;
+    }
+}
