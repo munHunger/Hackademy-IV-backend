@@ -1,10 +1,8 @@
 package io.orten.nano.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Project")
@@ -40,6 +38,9 @@ public class Project {
     private Date recurringProjectPublishingDate;
     @Column(name = "organizationID")
     private String organizationID;
+    @ManyToOne
+    @JoinColumn(name="DONOR_FK")
+    private User donor;
 
     public Project(){}
     public String getProjectID() {
@@ -81,6 +82,13 @@ public class Project {
     public double getAmountToBeRaised() {
         return amountToBeRaised;
     }
+    public User getDonor() {
+        return donor;
+    }
+
+    /**
+     * getters and setters
+     */
     public void setAmountToBeRaised(double amountToBeRaised) {
         this.amountToBeRaised = amountToBeRaised;
     }
@@ -125,4 +133,8 @@ public class Project {
     public void setOrganizationID(String organizationID) {
         this.organizationID = organizationID;
     }
+    public void setDonor(User donor) {
+        this.donor = donor;
+    }
+
 }
