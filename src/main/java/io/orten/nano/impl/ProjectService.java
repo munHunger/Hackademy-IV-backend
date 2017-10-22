@@ -1,15 +1,11 @@
 package io.orten.nano.impl;
 
 import io.orten.nano.model.Project;
-import io.orten.nano.model.User;
 import io.orten.nano.util.Database;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import javax.ws.rs.core.Response;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,12 +140,15 @@ public class ProjectService {
         }
     }
 
+    //ToDO: Project and Doner has Many-to-Many relation so can not be handled as code added by Nijla
+    //ToDO: Project donor need to be refactored further.
+
     /**
      * saves a donor information of an specific project
      * @param donor
      * @throws Exception
      */
-    public static void fundedBy(User donor,String projectID) throws Exception{
+    /*public static void fundedBy(User donor,String projectID) throws Exception{
         Session session = Database.getSession();
         Transaction tx = null;
         try {
@@ -163,8 +162,8 @@ public class ProjectService {
         } finally {
             session.close();
         }
-    }
-    public static List<Project> getFundedProjects(String donorID) throws Exception{
+    }*/
+   /* public static List<Project> getFundedProjects(String donorID) throws Exception{
         List<Project> fundedProjects = new ArrayList<>();
         Session session = Database.getSession();
         Transaction tx= null;
@@ -183,5 +182,5 @@ public class ProjectService {
         }finally{
             session.close();
         }
-    }
+    }*/
 }
