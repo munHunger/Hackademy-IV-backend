@@ -1,6 +1,9 @@
 package io.orten.nano.util;
 
 import io.orten.nano.model.Organization;
+//import io.orten.nano.model.Transaction;
+import io.orten.nano.model.Project;
+import io.orten.nano.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -9,6 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import javax.xml.ws.Response;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -120,6 +124,25 @@ public class Database {
     }
 
     /**
+     * saves a donor record in the database
+     */
+    public static boolean saveUser(User user) {
+        if (sessionFactory == null)
+            init();
+        try (Session s = sessionFactory.openSession()) {
+            s.getTransaction();
+            if (user.getUserID() != null) {
+                s.save(user);
+                s.beginTransaction().commit();
+                return  true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
+    /**
      * belongs to ProjectService class
      */
     public static Session getSession() throws Exception {
@@ -129,6 +152,9 @@ public class Database {
         Session session = sessionFactory.openSession();
         return session;
     }
-}
+
+
+
+    }
 
 
