@@ -8,38 +8,38 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Database {
-        private static SessionFactory sessionFactory;
-        private static void init(){
-            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure("hibernate.cfg.xml")
-                    .build();
-            MetadataSources mds = new MetadataSources(registry);
-            Metadata md = mds.buildMetadata();
-            sessionFactory = md.buildSessionFactory();
-            Runtime.getRuntime().addShutdownHook(new Thread(() ->
-            {
-                StandardServiceRegistryBuilder.destroy(registry);
-            }));
-        }
+    private static SessionFactory sessionFactory;
+    private static void init(){
+        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml")
+                .build();
+        MetadataSources mds = new MetadataSources(registry);
+        Metadata md = mds.buildMetadata();
+        sessionFactory = md.buildSessionFactory();
+        Runtime.getRuntime().addShutdownHook(new Thread(() ->
+        {
+            StandardServiceRegistryBuilder.destroy(registry);
+        }));
+    }
 
-            public static void saveObject(Object o){
-            if(sessionFactory == null)
-                init();
-            try(Session s = sessionFactory.openSession()){
-                s.beginTransaction();
-                s.save(o);
-                s.getTransaction().commit();
-            }
-        }
-
-        public static void updateOrganization(Object o){
+        public static void saveObject(Object o){
         if(sessionFactory == null)
             init();
         try(Session s = sessionFactory.openSession()){
             s.beginTransaction();
-            s.update(o);
+            s.save(o);
             s.getTransaction().commit();
         }
+    }
+
+    public static void updateOrganization(Object o){
+    if(sessionFactory == null)
+        init();
+    try(Session s = sessionFactory.openSession()){
+        s.beginTransaction();
+        s.update(o);
+        s.getTransaction().commit();
+    }
     }
 
     public static Session getSession() throws Exception {

@@ -11,10 +11,10 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private long Id;
-    @Column(name = "projectID",unique = true)
-    private String projectID;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "projectId",unique = true)
+    private String projectId;
+    @Column(name = "projectName")
+    private String projectName;
     @Column(name = "fromDate")
     private Date fromDate;
     @Column(name = "toDate")
@@ -39,29 +39,28 @@ public class Project {
     private boolean recurringProject;
     @Column(name = "recurringProjectPublishingDate")
     private Date recurringProjectPublishingDate;
-    @Column(name = "organizationID")
-    private String organizationID;
+    @Column(name = "organizationId")
+    private String organizationId;
 
     public Project(){}
 
     public long getId() {
         return Id;
     }
-
     public void setId(long id) {
         Id = id;
     }
-    public String getProjectID() {
-        return projectID;
+    public String getProjectId() {
+        return projectId;
     }
-    public void setProjectID(String projectID) {
-        this.projectID = projectID;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
-    public String getName() {
-        return name;
+    public String getProjectName() {
+        return projectName;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setProjectName(String name) {
+        this.projectName = name;
     }
     public Date getFromDate() {
         return fromDate;
@@ -132,10 +131,10 @@ public class Project {
     }
     public void setRecurringProjectPublishingDate(Date recurringProjectPublishingDate) {
         this.recurringProjectPublishingDate = recurringProjectPublishingDate;}
-    public String getOrganizationID() {
-        return organizationID;
+    public String getOrganizationId() {
+        return organizationId;
     }
-    public void setOrganizationID(String organizationID) {
-        this.organizationID = organizationID;
+    public void setOrganizationId(String organizationID) {
+        this.organizationId = organizationID;
     }
 }

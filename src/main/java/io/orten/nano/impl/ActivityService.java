@@ -1,6 +1,6 @@
 package io.orten.nano.impl;
 
-import io.orten.nano.model.Project;
+import io.orten.nano.model.Activity;
 import io.orten.nano.util.Database;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,23 +9,23 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectService {
+public class ActivityService {
 
-    public static List<Project> projectList = new ArrayList<Project>();
+       public static List<Activity> activityList = new ArrayList<Activity>();
 
     /**
      *
-     * @param id
-     * @return project
+     * @param activityId
+     * @return activity
      * @throws Exception
      */
-    public static Project getprojectbyid(long id) throws Exception {
+    public static Activity getActivityByActivityId(long activityId) throws Exception {
         Session session = null;
         try {
             session = Database.getSession();
-            Project project = session.get(Project.class, id);
+            Activity activity = session.get(Activity.class, activityId);
             session.close();
-            return project;
+            return activity;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -36,19 +36,19 @@ public class ProjectService {
     /**
      *
      * @param projectID
-     * @return project
+     * @return activity
      * @throws Exception
      */
-    public static Project getProjectByProjectId(String projectID) throws Exception {
+    public static Activity getActivityByProjectId(String projectID) throws Exception {
 
         Session session = null;
         try {
             session = Database.getSession();
-            Query query = session.createQuery("from Project where projectId like :projectID");
+            Query query = session.createQuery("from Activity where projectId like :projectID");
             query.setParameter("projectID", projectID);
-            Project project = (Project) query.uniqueResult();
+            Activity activity = (Activity) query.uniqueResult();
             session.close();
-            return project;
+            return activity;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -58,16 +58,16 @@ public class ProjectService {
 
     /**
      *
-     * @return list of projects
+     * @return list of Activities
      * @throws Exception
      */
-    public static List<Project> getListOfProjects() throws Exception {
+    public static List<Activity> getListOfActivities() throws Exception {
         Session session = null;
         try {
             session = Database.getSession();
-            List projects = session.createQuery("from Project").list();
+            List Activities = session.createQuery("from Activity").list();
             session.close();
-            return projects;
+            return Activities;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -77,19 +77,19 @@ public class ProjectService {
 
     /**
      *
-     * @param projectName
-     * @return list of projects
+     * @param activityTitle
+     * @return Search Activities
      * @throws Exception
      */
-    public static List getProjectsByName(String projectName) throws Exception {
+    public static List getActivitiesByActivityTitle(String activityTitle) throws Exception {
         Session session = null;
         try {
             session = Database.getSession();
-            Query query = session.createQuery("from Project where projectName like :projectName");
-            query.setParameter("projectName", "%" + projectName + "%");
-            List<Project> projects = query.list();
+            Query query = session.createQuery("from Activity where activityTitle like :activityTitle");
+            query.setParameter("activityTitle", "%" + activityTitle + "%");
+            List<Activity> activities = query.list();
             session.close();
-            return projects;
+            return activities;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -99,16 +99,16 @@ public class ProjectService {
 
     /**
      *
-     * @param project
+     * @param activity
      * @throws Exception
      */
-    public static void saveProject(Project project) throws Exception {
+    public static void saveActivity(Activity activity) throws Exception {
         Session session = null;
         Transaction tx = null;
         try {
             session = Database.getSession();
             tx = session.beginTransaction();
-            session.saveOrUpdate(project);
+            session.saveOrUpdate(activity);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -120,17 +120,17 @@ public class ProjectService {
 
     /**
      *
-     * @param id
+     * @param activityId
      * @throws Exception
      */
-    public static void deleteProject(Long id) throws Exception {
+    public static void deleteActivity(Long activityId) throws Exception {
         Session session = null;
         Transaction tx = null;
         try {
             session = Database.getSession();
             tx = session.beginTransaction();
-            Project project = session.get(Project.class, id);
-            session.delete(project);
+            Activity activity = session.get(Activity.class, activityId);
+            session.delete(activity);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
