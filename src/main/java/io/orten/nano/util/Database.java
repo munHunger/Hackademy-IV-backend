@@ -21,8 +21,9 @@ import java.util.List;
  * Creates and manages connections with and transactions to the database
  */
 public class Database {
-  
+
     private static SessionFactory sessionFactory;
+
     private static void init() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
@@ -45,13 +46,12 @@ public class Database {
             init();
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
-            String orgID=org.organizationID;
-            if (getOrganization(orgID)==null)
-            {
+            String orgID = org.organizationID;
+            if (getOrganization(orgID) == null) {
                 s.save(org);
                 s.getTransaction().commit();
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -66,6 +66,7 @@ public class Database {
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
             s.update(org);
+            s.getTransaction().commit();
         }
     }
 
@@ -81,19 +82,19 @@ public class Database {
             Query q = s.createQuery("from Organization as org where org.organizationID = :orgID");
             q.setParameter("orgID", orgID);
             list = q.getResultList();
-            if (list.isEmpty()){
+            if (list.isEmpty()) {
                 return null;
             } else {
                 return list.get(0);
             }
         }
     }
+
     /**
      * gets all the organizations' objects from the database
      */
-
-    public static List<Organization> getAllOrganizations(){
-        List<Organization> list= new ArrayList<>();
+    public static List<Organization> getAllOrganizations() {
+        List<Organization> list = new ArrayList<>();
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
@@ -107,20 +108,21 @@ public class Database {
     /**
      * delets an organization object from the database
      */
-    public static boolean deleteOrganization(String orgID){
-        if (sessionFactory== null)
+    public static boolean deleteOrganization(String orgID) {
+        if (sessionFactory == null)
             init();
-        try(Session s = sessionFactory.openSession()){
+        try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
             Query q = s.createQuery("from Organization org where org.organizationID = :orgID");
-            q.setParameter("orgID",orgID);
+            q.setParameter("orgID", orgID);
             List<Organization> list = q.getResultList();
-            if (!list.isEmpty()){
+            if (!list.isEmpty()) {
                 s.delete(list.get(0));
                 s.getTransaction().commit();
-                return true ;
+                return true;
+            } else {
+                return false;
             }
-            else {return false;}
         }
     }
 
@@ -131,31 +133,27 @@ public class Database {
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
-            s.getTransaction();
+            s.beginTransaction();
             if (user.getUserID() != null) {
                 s.save(user);
-                s.beginTransaction().commit();
-                return  true;
+                s.getTransaction().commit();
+                return true;
             } else {
                 return false;
             }
         }
     }
 
-
     /**
      * belongs to ProjectService class
      */
     public static Session getSession() throws Exception {
-        if(sessionFactory == null) {
+        if (sessionFactory == null) {
             init();
         }
         Session session = sessionFactory.openSession();
         return session;
     }
-
-
-
-    }
+}
 
 
