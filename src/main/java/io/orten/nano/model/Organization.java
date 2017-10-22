@@ -4,7 +4,6 @@ import javax.persistence.*;
 /**
  *represents an organization raising fund for one or more projects
  */
-
 @Entity
 @Table(name="organization")
 public class Organization {
@@ -21,6 +20,7 @@ public class Organization {
     /**
      * default constructor required by hibernate
      */
+
     public Organization()
     {
 
@@ -39,11 +39,5 @@ public class Organization {
         this.billingInformation = billingInformation;
         this.description = description;
     }
-
-    /**
-     * organizationID getter
-     */
-    public String getOrganizationID() {
-        return organizationID;
-    }
 }
+

@@ -1,9 +1,7 @@
 package io.orten.nano.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,9 +16,6 @@ public class User {
         private String firstName;
         private String lastName;
 
-        @OneToMany
-        private List<Project> fundedProjects;
-
         /**
          * default constructor required by hibernate
          */
@@ -31,11 +26,10 @@ public class User {
         /**
          * business constructor
          */
-        public User(String userID, String firstName, String lastName, List<Project> fundedProjects) {
+        public User(String userID, String firstName, String lastName) {
             this.userID = userID;
             this.firstName = firstName;
             this.lastName = lastName;
-            this.fundedProjects = fundedProjects;
         }
 
         /**
@@ -53,10 +47,6 @@ public class User {
             return lastName;
         }
 
-        public List<Project> getFundedProjects() {
-            return fundedProjects;
-        }
-
         /**
          * setter methods
          */
@@ -70,10 +60,7 @@ public class User {
 
         public void setLastName(String lastName) {
             this.lastName = lastName;
-        }
 
-        public void setFundedProjects(List<Project> fundedProjects) {
-            this.fundedProjects = fundedProjects;
         }
     }
 

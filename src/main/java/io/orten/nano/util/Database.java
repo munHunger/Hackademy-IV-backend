@@ -21,7 +21,7 @@ import java.util.List;
  * Creates and manages connections with and transactions to the database
  */
 public class Database {
-
+  
     private static SessionFactory sessionFactory;
     private static void init() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -91,6 +91,7 @@ public class Database {
     /**
      * gets all the organizations' objects from the database
      */
+
     public static List<Organization> getAllOrganizations(){
         List<Organization> list= new ArrayList<>();
         if (sessionFactory == null)

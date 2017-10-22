@@ -1,11 +1,9 @@
 package io.orten.nano.impl;
 
 import io.orten.nano.model.Organization;
-import io.orten.nano.model.Project;
 import io.orten.nano.util.Database;
 import javax.ws.rs.core.Response;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 

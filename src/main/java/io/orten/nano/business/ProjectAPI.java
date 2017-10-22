@@ -2,6 +2,8 @@ package io.orten.nano.business;
 
 import io.orten.nano.impl.ProjectService;
 import io.orten.nano.model.Project;
+import io.orten.nano.model.User;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -68,5 +70,34 @@ public class ProjectAPI{
         } catch (Exception e) {
             return Response.status(500).build();
         }
+    }
+
+    /**
+     * saves a donor information in the project table
+     * @param donor
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/post/fundedby/{projectID}")
+    public Response fundedBy(User donor,@PathParam("projectID") String projectID){
+        try{
+         ProjectService.fundedBy(donor,projectID);
+         return Response.status(200).build();
+        }catch (Exception e){
+            return Response.status(500).build();
+        }
+    }
+
+    @GET
+    @Path("/get/fundedprojects/{donorID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFundedProjects(@PathParam("donorID") String donorID){
+        try {
+            ProjectService.getFundedProjects(donorID);
+            return Response.status(200).build();
+        }catch (Exception e){
+            return Response.status(500).build();
+        }
+
     }
 }

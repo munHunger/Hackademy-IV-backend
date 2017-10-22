@@ -40,6 +40,7 @@ public class OrganizationAPI {
     /**
      *     a method to retrieve an organization object from the database based on the organizationID
      */
+
     @GET
     @Path("/getorg")
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,3 +69,4 @@ public class OrganizationAPI {
         return new OrganizationService().delete(orgID);
     }
 }
+
