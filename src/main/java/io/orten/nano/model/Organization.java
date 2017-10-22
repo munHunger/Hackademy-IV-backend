@@ -1,10 +1,6 @@
 package io.orten.nano.model;
 
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SelectBeforeUpdate;
-
 import javax.persistence.*;
-import java.io.Serializable;
 /**
  *represents an organization raising fund for one or more projects
  */
