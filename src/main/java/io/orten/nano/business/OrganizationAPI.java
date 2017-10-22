@@ -3,70 +3,70 @@ package io.orten.nano.business;
 import io.orten.nano.impl.OrganizationService;
 import io.orten.nano.model.Organization;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
 
-@Path("/")
+/**
+ * end point for all Organization operations
+ */
+@Path("/org")
+
 public class OrganizationAPI {
-    public static List<Organization> o_list = new ArrayList<Organization>();
 
-    @GET
-    @Path("/get/organization/{organizationID}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrganization(@PathParam("organizationID") String organizationID) {
-        try {
-            Organization organization = OrganizationService.getOrganization(organizationID);
-            return Response.status(200).entity(organization).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
-    @GET
-    @Path("/get/organizations")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrganizations() {
-        try {
-            List<Organization> organizations = OrganizationService.getOrganizations();
-            return Response.status(200).entity(organizations).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
-    @GET
-    @Path("/get/organizations/{organizationName}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrganizationsByName(@PathParam("organizationName") String organizationName) {
-        try {
-            List<Organization> organizations = OrganizationService.getOrganizationsByName(organizationName);
-            return Response.status(200).entity(organizations).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
-    }
-
+    /**
+     * saves an organization object in the database
+     */
     @POST
-    @Path("/post/organization")
-    public Response saveOrganization(Organization organization) {
-        try {
-            OrganizationService.saveOrganization(organization);
-            return Response.status(200).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
+    @Path("/saveorg")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response saveOrganization(Organization org)
+    {
+        return new OrganizationService().save(org);
     }
 
+    /**
+     * updates an organization object that already saved in the database
+     */
+    @PUT
+    @Path("/updateorg")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateOrg(Organization org)
+    {
+        return new OrganizationService().update(org);
+    }
+
+    /**
+     *     a method to retrieve an organization object from the database based on the organizationID
+     */
+
+    @GET
+    @Path("/getorg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOrg(@QueryParam("orgID") String orgID){
+        return new OrganizationService().get(orgID);
+    }
+
+    /**
+     * retrieves all orgnizations' objects that are already saved in the database
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getall")
+    public Response getAllOrg(){
+        return new OrganizationService().getAll();
+    }
+
+    /**
+     * deletes an organization object from the database
+     */
     @DELETE
-    @Path("/delete/organization/{organizationID}")
-    public Response deleteOrganization(@PathParam("organizationID") String organizationID) {
-        try {
-            OrganizationService.deleteOrganization(organizationID);
-            return Response.status(200).build();
-        } catch (Exception e) {
-            return Response.status(500).build();
-        }
+    @Consumes
+    @Path("/deleteorg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteOrg(@QueryParam("orgID") String orgID){
+        return new OrganizationService().delete(orgID);
     }
 }
+
