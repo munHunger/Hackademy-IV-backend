@@ -2,18 +2,19 @@ package io.orten.nano.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "Project")
+@Table(name = "project")
 public class Project {
+
     @Id
-    //TODO: I think we should have long type and auto increment PK.
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "projectID")
-    private String projectID;
-    @Column(name = "name")
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private long Id;
+    @Column(name = "projectId",unique = true)
+    private String projectId;
+    @Column(name = "projectName")
+    private String projectName;
     @Column(name = "fromDate")
     private Date fromDate;
     @Column(name = "toDate")
@@ -24,6 +25,8 @@ public class Project {
     private float latitude;
     @Column(name = "amountToBeRaised")
     private double amountToBeRaised;
+    @Column(name = "raisedFunding")
+    private double raisedFunding;
     @Column(name = "description")
     private String description;
     @Column(name = "imageOrvideo")
@@ -36,24 +39,28 @@ public class Project {
     private boolean recurringProject;
     @Column(name = "recurringProjectPublishingDate")
     private Date recurringProjectPublishingDate;
-    @Column(name = "organizationID")
-    private String organizationID;
-    @ManyToOne
-    @JoinColumn(name="DONOR_FK")
-    private User donor;
+    @Column(name = "organizationId")
+    private String organizationId;
 
     public Project(){}
-    public String getProjectID() {
-        return projectID;
+
+    public long getId() {
+        return Id;
     }
-    public void setProjectID(String projectID) {
-        this.projectID = projectID;
+    public void setId(long id) {
+        Id = id;
     }
-    public String getName() {
-        return name;
+    public String getProjectId() {
+        return projectId;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+    public String getProjectName() {
+        return projectName;
+    }
+    public void setProjectName(String name) {
+        this.projectName = name;
     }
     public Date getFromDate() {
         return fromDate;
@@ -67,9 +74,7 @@ public class Project {
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
-    public float getLongitude() {
-        return longitude;
-    }
+    public float getLongitude() {return longitude;}
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
@@ -82,15 +87,14 @@ public class Project {
     public double getAmountToBeRaised() {
         return amountToBeRaised;
     }
-    public User getDonor() {
-        return donor;
-    }
-
-    /**
-     * getters and setters
-     */
     public void setAmountToBeRaised(double amountToBeRaised) {
         this.amountToBeRaised = amountToBeRaised;
+    }
+    public double getRaisedFunding() {
+        return raisedFunding;
+    }
+    public void setRaisedFunding(double raisedFunding) {
+        this.raisedFunding = raisedFunding;
     }
     public String getDescription() {
         return description;
@@ -127,14 +131,10 @@ public class Project {
     }
     public void setRecurringProjectPublishingDate(Date recurringProjectPublishingDate) {
         this.recurringProjectPublishingDate = recurringProjectPublishingDate;}
-    public String getOrganizationID() {
-        return organizationID;
+    public String getOrganizationId() {
+        return organizationId;
     }
-    public void setOrganizationID(String organizationID) {
-        this.organizationID = organizationID;
+    public void setOrganizationId(String organizationID) {
+        this.organizationId = organizationID;
     }
-    public void setDonor(User donor) {
-        this.donor = donor;
-    }
-
 }

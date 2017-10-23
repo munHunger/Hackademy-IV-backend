@@ -34,9 +34,7 @@ public class OrganizationTest {
     @Test
     public void saveorganaization()
     {
-        Organization org= new Organization("67","microsoft", "NY", "nwerme","0989769865"
-                , "mdf@gmail.com", "newpassword45", "brooklyn",
-                "154678", "very successful organisation");
+        Organization org= new Organization("67","microsoft", "NY", "nwerme","mdf@gmail.com", "0989769865","", "very successful organisation");
         s.save(org);
     }
 
