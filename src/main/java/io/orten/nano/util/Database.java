@@ -11,9 +11,6 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//import io.orten.nano.model.Transaction;
-
 /**
  * Creates and manages connections with and transactions to the database
  */
