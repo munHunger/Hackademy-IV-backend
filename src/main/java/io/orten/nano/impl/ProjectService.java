@@ -148,7 +148,7 @@ public class ProjectService {
      * @param donor
      * @throws Exception
      */
-    /*public static void fundedBy(User donor,String projectID) throws Exception{
+    /*public static void fundedBy(Donor donor,String projectID) throws Exception{
         Session session = Database.getSession();
         Transaction tx = null;
         try {

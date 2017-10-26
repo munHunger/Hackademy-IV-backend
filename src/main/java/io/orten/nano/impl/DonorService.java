@@ -1,6 +1,6 @@
 package io.orten.nano.impl;
 
-import io.orten.nano.model.User;
+import io.orten.nano.model.Donor;
 import io.orten.nano.util.Database;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,17 +9,17 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserService {
+public class DonorService {
 
-        public static List<User> userList = new ArrayList<User>();
+        public static List<Donor> donorList = new ArrayList<Donor>();
 
-        public static User getUser(long userID) throws Exception {
+        public static Donor getUser(long userID) throws Exception {
             Session session = null;
             try {
                 session = Database.getSession();
-                User user= session.get(User.class, userID);
+                Donor donor = session.get(Donor.class, userID);
                 session.close();
-                return user;
+                return donor;
             }
             catch (HibernateException e) {
                 throw e;
@@ -28,11 +28,11 @@ public class UserService {
             }
         }
 
-        public static List<User> getUsers() throws Exception {
+        public static List<Donor> getUsers() throws Exception {
             Session session = null;
             try {
                 session = Database.getSession();
-                List users = session.createQuery("from User").list();
+                List users = session.createQuery("from Donor").list();
                 session.close();
                 return users;
             }
@@ -48,11 +48,11 @@ public class UserService {
             Session session = null;
             try {
                 session = Database.getSession();
-                Query query = session.createQuery("from User where userName like :userName");
+                Query query = session.createQuery("from Donor where userName like :userName");
                 query.setParameter("userName", "%" + userName + "%");
-                List<User> users = query.list();
+                List<Donor> donors = query.list();
                 session.close();
-                return users;
+                return donors;
             } catch (HibernateException e) {
                 throw e;
             } finally {
@@ -60,12 +60,12 @@ public class UserService {
             }
         }
 
-        public static void saveUser(User user) throws Exception {
+        public static void saveUser(Donor donor) throws Exception {
             Session session = Database.getSession();
             Transaction tx = null;
             try {
                 tx = session.beginTransaction();
-                session.saveOrUpdate(user);
+                session.saveOrUpdate(donor);
                 tx.commit();
             } catch (HibernateException e) {
                 if (tx != null) tx.rollback();
@@ -81,8 +81,8 @@ public class UserService {
             try {
                 session = Database.getSession();
                 tx = session.beginTransaction();
-                User user= session.get(User.class, userID);
-                session.delete(user);
+                Donor donor = session.get(Donor.class, userID);
+                session.delete(donor);
                 tx.commit();
             } catch (HibernateException e) {
                 if (tx != null) tx.rollback();

@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class Donor {
 
     @Id
     @Column(name = "userID")
@@ -28,7 +28,7 @@ public class User {
     @Column(name = "applicationID")
     private String applicationID;
 
-    public User(){}
+    public Donor(){}
 
     public long getUserID() {return userID;}
     public void setUserID(long userID) {
