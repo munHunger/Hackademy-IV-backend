@@ -1,5 +1,6 @@
 package io.orten.nano.util;
 
+import io.orten.nano.model.Donor;
 import io.orten.nano.model.Organization;
 import io.orten.nano.model.Project;
 import org.hibernate.Session;
@@ -166,5 +167,20 @@ public class Database {
             result=model;
         }
         return result;
+    }
+    //Method for displaying all list  projects
+    public static  List<Donor> getListOfTransaction() throws Exception {
+
+        if(sessionFactory == null) {
+            init();
+        }
+        List<Donor> donors = null;
+        try(Session s=sessionFactory.openSession()){
+            s.getTransaction();
+            String hql = "from Donor d";
+            donors = s.createQuery(hql).list();
+        }
+        return donors;
+
     }
 }
