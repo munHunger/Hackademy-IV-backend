@@ -35,17 +35,17 @@ public class ProjectService {
 
     /**
      *
-     * @param projectID
+     * @param projectNumber
      * @return project
      * @throws Exception
      */
-    public static Project getProjectByProjectId(String projectID) throws Exception {
+    public static Project getProjectByProjectId(String projectNumber) throws Exception {
 
         Session session = null;
         try {
             session = Database.getSession();
-            Query query = session.createQuery("from Project where projectId like :projectID");
-            query.setParameter("projectID", projectID);
+            Query query = session.createQuery("from Project where projectNumber like :projectNumber");
+            query.setParameter("projectNumber", projectNumber);
             Project project = (Project) query.uniqueResult();
             session.close();
             return project;

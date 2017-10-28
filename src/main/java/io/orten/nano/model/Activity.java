@@ -12,7 +12,7 @@ public class Activity {
     @Column(name = "activityId")
     private long activityId;
     @Column(name = "projectId")
-    private String projectId;
+    private long projectId;
     @Column(name = "activityTitle")
     private String activityTitle;
     @Column(name = "activityDescription")
@@ -26,8 +26,8 @@ public class Activity {
 
     public long getActivityId() {return activityId;}
     public void setActivityId(long activityId) {this.activityId = activityId;}
-    public String getProjectId() {return projectId;}
-    public void setProjectId(String projectID) {this.projectId = projectID;}
+    public Long getProjectId() {return projectId;}
+    public void setProjectId(Long projectID) {this.projectId = projectID;}
     public String getActivityTitle() {return activityTitle;}
     public void setActivityTitle(String activityTitle) {this.activityTitle = activityTitle;}
     public String getActivityDescription() {return activityDescription;}

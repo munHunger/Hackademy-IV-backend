@@ -35,20 +35,20 @@ public class ActivityService {
 
     /**
      *
-     * @param projectID
+     * @param projectId
      * @return activity
      * @throws Exception
      */
-    public static Activity getActivityByProjectId(String projectID) throws Exception {
+    public static List<Activity> getActivityByProjectId(long projectId) throws Exception {
 
         Session session = null;
         try {
             session = Database.getSession();
-            Query query = session.createQuery("from Activity where projectId like :projectID");
-            query.setParameter("projectID", projectID);
-            Activity activity = (Activity) query.uniqueResult();
+            Query query = session.createQuery("from Activity where projectId like :projectId");
+            query.setParameter("projectId", projectId);
+            List<Activity> activities = query.list();
             session.close();
-            return activity;
+            return activities;
         } catch (HibernateException e) {
             throw e;
         } finally {
