@@ -27,12 +27,12 @@ public class ActivityAPI {
         }
 
         @GET
-        @Path("/getactivitybyprojectid/{projectID}")
+        @Path("/getlistofactivitiesbyprojectid/{projectID}")
         @Produces(MediaType.APPLICATION_JSON)
-        public Response getActivityByProjectId(@PathParam("projectID") String projectID) {
+        public Response getActivityByProjectId(@PathParam("projectID") long projectID) {
             try {
-                Activity activity = ActivityService.getActivityByProjectId(projectID);
-                return Response.status(HttpServletResponse.SC_OK).entity(activity).build();
+                List<Activity> activities = ActivityService.getActivityByProjectId(projectID);
+                return Response.status(HttpServletResponse.SC_OK).entity(activities).build();
             } catch (Exception e) {
                 return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
             }

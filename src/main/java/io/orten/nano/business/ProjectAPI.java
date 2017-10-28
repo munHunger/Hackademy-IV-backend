@@ -26,11 +26,11 @@ public class ProjectAPI{
     }
 
     @GET
-    @Path("/getprojectbyprojectid/{projectID}")
+    @Path("/getprojectbyprojectnumber/{projectNumber}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProjectByProjectId(@PathParam("projectID") String projectID) {
+    public Response getProjectByProjectId(@PathParam("projectNumber") String projectNumber) {
         try {
-            Project project = ProjectService.getProjectByProjectId(projectID);
+            Project project = ProjectService.getProjectByProjectId(projectNumber);
             return Response.status(HttpServletResponse.SC_OK).entity(project).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
