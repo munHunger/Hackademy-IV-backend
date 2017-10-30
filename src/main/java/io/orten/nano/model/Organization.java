@@ -9,8 +9,9 @@ import javax.persistence.*;
 public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int Id;
-    private String organizationID;
+    long Id;
+    @Column(name ="organizationID")
+    private String organizationId;
     private String organizationNumber;
     private String name;
     private String address;
@@ -19,7 +20,7 @@ public class Organization {
     private String accountNumber;
     private String billingInformation;
     private String description;
-    private String password;
+
 
     /**
      * default constructor required by hibernate
@@ -36,7 +37,7 @@ public class Organization {
     public Organization(String organizationID,String organizationNumber, String organizationName
             , String organizationAddress, String contactPersonName, String contactPersonEmail
             , String accountNumber,String billingInformation, String description) {
-        this.organizationID = organizationID;
+        this.organizationId = organizationID;
         this.organizationNumber= organizationNumber;
         this.name = organizationName;
         this.address = organizationAddress;
@@ -51,12 +52,12 @@ public class Organization {
     /**
      * getters and setters
      */
-    public String getOrganizationID() {
-        return organizationID;
+    public String getOrganizationId() {
+        return organizationId;
     }
 
-    public void setOrganizationID(String organizationID) {
-        this.organizationID = organizationID;
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getOrganizationNumber() {
@@ -123,12 +124,5 @@ public class Organization {
         this.description = description;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
 

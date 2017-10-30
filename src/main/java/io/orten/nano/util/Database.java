@@ -40,7 +40,7 @@ public class Database {
             init();
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
-            String orgID = org.getOrganizationID();
+            String orgID = org.getOrganizationId();
             if (getOrganization(orgID) == null) {
                 s.save(org);
                 s.getTransaction().commit();
