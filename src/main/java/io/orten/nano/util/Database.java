@@ -10,6 +10,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Creates and manages connections with and transactions to the database
@@ -41,7 +42,9 @@ public class Database {
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
             Long orgId = org.getOrganizationId();
-            if (getOrganization(orgId) == null) {
+            String orgNo= org.getOrganizationNumber();
+            boolean flag = Pattern.matches("\\w{6}-\\w{4}",orgNo);
+            if ((getOrganization(orgId) == null) && (flag)) {
                 s.save(org);
                 s.getTransaction().commit();
                 return true;
