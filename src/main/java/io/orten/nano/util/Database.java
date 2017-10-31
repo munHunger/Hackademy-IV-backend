@@ -44,7 +44,7 @@ public class Database {
             Long orgId = org.getOrganizationId();
             String orgNo= org.getOrganizationNumber();
             boolean flag = Pattern.matches("\\w{6}-\\w{4}",orgNo);
-            if ((getOrganization(orgId) == null) && (flag==true)) {
+            if ((getOrganization(orgId) == null) && (flag)) {
                 s.save(org);
                 s.getTransaction().commit();
                 return true;
