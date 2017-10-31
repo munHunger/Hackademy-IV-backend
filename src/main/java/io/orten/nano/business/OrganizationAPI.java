@@ -58,7 +58,7 @@ public class OrganizationAPI {
      */
     @DELETE
     @Path("{orgId}")
-    public Response deleteOrg(@PathParam("orgID") Long orgId){
+    public Response deleteOrg(@PathParam("orgId") Long orgId){
         return new OrganizationService().delete(orgId);
     }
 }
