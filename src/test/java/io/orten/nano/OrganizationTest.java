@@ -31,8 +31,8 @@ public class OrganizationTest {
             }));
     }
 
-    @Test
-    public void saveorganaization()
+    /*@Test
+     public void saveorganaization()
     {
         Organization org= new Organization("67","microsoft", "NY", "nwerme","mdf@gmail.com", "0989769865","", "very successful organisation");
         s.save(org);
@@ -43,5 +43,5 @@ public class OrganizationTest {
         s.getTransaction().commit();
         s.close();
         sessionFactory.close();
-    }
+    }*/
 }

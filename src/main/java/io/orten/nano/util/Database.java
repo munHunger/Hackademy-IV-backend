@@ -11,6 +11,8 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+
 /**
  * Creates and manages connections with and transactions to the database
  */
@@ -40,8 +42,8 @@ public class Database {
             init();
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
-            String orgID = org.getOrganizationId();
-            if (getOrganization(orgID) == null) {
+            Long orgId = org.getOrganizationId();
+            if (getOrganization(orgId) == null) {
                 s.save(org);
                 s.getTransaction().commit();
                 return true;
@@ -67,13 +69,13 @@ public class Database {
     /**
      * gets one organization object from the database based on its ID
      */
-    public static Organization getOrganization(String orgID) {
+    public static Organization getOrganization(Long orgId) {
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
             List<Organization> list = new ArrayList<>();
-            Query q = s.createQuery("from Organization as org where org.organizationID = :orgID");
-            q.setParameter("orgID", orgID);
+            Query q = s.createQuery("from Organization as org where org.organizationId = :orgId");
+            q.setParameter("orgId", orgId);
             list = q.getResultList();
             if (list.isEmpty()) {
                 return null;
@@ -100,13 +102,13 @@ public class Database {
     /**
      * delets an organization object from the database
      */
-    public static boolean deleteOrganization(String orgID) {
+    public static boolean deleteOrganization(Long orgId) {
         if (sessionFactory == null)
             init();
         try (Session s = sessionFactory.openSession()) {
             s.beginTransaction();
-            Query q = s.createQuery("from Organization org where org.organizationID = :orgID");
-            q.setParameter("orgID", orgID);
+            Query q = s.createQuery("from Organization org where org.organizationId = :orgId");
+            q.setParameter("orgId", orgId);
             List<Organization> list = q.getResultList();
             if (!list.isEmpty()) {
                 s.delete(list.get(0));

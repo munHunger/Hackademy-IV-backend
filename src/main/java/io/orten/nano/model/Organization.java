@@ -9,9 +9,7 @@ import javax.persistence.*;
 public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long Id;
-    @Column(name ="organizationID")
-    private String organizationId;
+    private Long organizationId;
     private String organizationNumber;
     private String name;
     private String address;
@@ -21,11 +19,9 @@ public class Organization {
     private String billingInformation;
     private String description;
 
-
     /**
      * default constructor required by hibernate
      */
-
     public Organization()
     {
 
@@ -34,7 +30,7 @@ public class Organization {
     /**
      *  Bussiness Constructor
      */
-    public Organization(String organizationID,String organizationNumber, String organizationName
+    public Organization(Long organizationID,String organizationNumber, String organizationName
             , String organizationAddress, String contactPersonName, String contactPersonEmail
             , String accountNumber,String billingInformation, String description) {
         this.organizationId = organizationID;
@@ -52,11 +48,11 @@ public class Organization {
     /**
      * getters and setters
      */
-    public String getOrganizationId() {
+    public Long getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(String organizationId) {
+    public void setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
     }
 
