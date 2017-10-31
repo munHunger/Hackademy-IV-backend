@@ -34,10 +34,10 @@ public class OrganizationService {
         }
     }
 
-    public Response get(String orgID)
+    public Response get(Long orgId)
     {
         try {
-            Organization org = Database.getOrganization(orgID);
+            Organization org = Database.getOrganization(orgId);
             if (org!=null) {
                 return Response.status(HttpServletResponse.SC_OK).entity(org).build();
             }else {
@@ -62,9 +62,9 @@ public class OrganizationService {
         }
     }
 
-    public Response delete(String orgID){
+    public Response delete(Long  orgId){
         try{
-            if (Database.deleteOrganization(orgID)== true) {
+            if (Database.deleteOrganization(orgId)== true) {
                 return Response.status(HttpServletResponse.SC_OK).build();
             }
             else {return Response.status(HttpServletResponse.SC_NOT_FOUND).build();}

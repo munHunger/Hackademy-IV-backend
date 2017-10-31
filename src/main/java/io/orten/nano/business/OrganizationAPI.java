@@ -38,10 +38,10 @@ public class OrganizationAPI {
      */
 
     @GET
-    @Path("{orgID}")
+    @Path("{orgId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrg(@PathParam("orgID") String orgID){
-        return new OrganizationService().get(orgID);
+    public Response getOrg(@PathParam("orgId") Long orgId){
+        return new OrganizationService().get(orgId);
     }
 
     /**
@@ -57,9 +57,9 @@ public class OrganizationAPI {
      * deletes an organization object from the database
      */
     @DELETE
-    @Path("{orgID}")
-    public Response deleteOrg(@PathParam("orgID") String orgID){
-        return new OrganizationService().delete(orgID);
+    @Path("{orgId}")
+    public Response deleteOrg(@PathParam("orgId") Long orgId){
+        return new OrganizationService().delete(orgId);
     }
 }
 
