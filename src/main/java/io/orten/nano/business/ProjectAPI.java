@@ -9,14 +9,14 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/")
+@Path("/projects")
 public class ProjectAPI{
     public static List<Project> projectList = new ArrayList<Project>();
 
     @GET
-    @Path("/getprojectbyid/{id}")
+    @Path("/{project_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getprojectbyid(@PathParam("id") Long id) {
+    public Response getprojectbyid(@PathParam("project_id") Long id) {
         try {
             Project project = ProjectService.getprojectbyid(id);
             return Response.status(HttpServletResponse.SC_OK).entity(project).build();
@@ -26,7 +26,7 @@ public class ProjectAPI{
     }
 
     @GET
-    @Path("/getprojectbyprojectnumber/{projectNumber}")
+    @Path("/number/{projectNumber}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProjectByProjectId(@PathParam("projectNumber") String projectNumber) {
         try {
@@ -38,7 +38,6 @@ public class ProjectAPI{
     }
 
     @GET
-    @Path("/getlistofprojects")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getListOfProjects() {
         try {
@@ -50,7 +49,7 @@ public class ProjectAPI{
     }
 
     @GET
-    @Path("/getlistofprojectsbyname/{projectName}")
+    @Path("/name/{projectName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProjectsByName(@PathParam("projectName") String projectName) {
         try {
@@ -62,7 +61,6 @@ public class ProjectAPI{
     }
 
     @POST
-    @Path("/saveproject")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveProject(Project project) {
         try {
@@ -73,8 +71,26 @@ public class ProjectAPI{
         }
     }
 
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateProject(Project project, @PathParam("id") Long id) {
+        try {
+            if(project.getId() == id) {
+                ProjectService.updateProject(project);
+                return Response.status(HttpServletResponse.SC_OK).build();
+            }
+            else {
+                return Response.status(HttpServletResponse.SC_BAD_REQUEST).build();
+            }
+
+        } catch (Exception e) {
+            return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @DELETE
-    @Path("/deleteproject/{id}")
+    @Path("/{id}")
     public Response deleteProject(@PathParam("id") Long id) {
         try {
             ProjectService.deleteProject(id);

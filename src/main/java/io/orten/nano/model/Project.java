@@ -44,7 +44,7 @@ public class Project {
     @Column(name = "recurringProjectPublishingDate")
     private Date recurringProjectPublishingDate;
     @Column(name = "organizationId")
-    private String organizationId;
+    private long organizationId;
 
     public Project(){}
 
@@ -147,10 +147,10 @@ public class Project {
     }
     public void setRecurringProjectPublishingDate(Date recurringProjectPublishingDate) {
         this.recurringProjectPublishingDate = recurringProjectPublishingDate;}
-    public String getOrganizationId() {
+    public long getOrganizationId() {
         return organizationId;
     }
-    public void setOrganizationId(String organizationId) {
+    public void setOrganizationId(long organizationId) {
         this.organizationId = organizationId;
     }
 }
