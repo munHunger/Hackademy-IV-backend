@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Table(name="organization")
 public class Organization {
     @Id
-    public String organizationID;
+    public String organizationId;
+    public String organizationNumber;
     public String name;
     public String address;
     public String contactPersonName;
@@ -16,7 +17,6 @@ public class Organization {
     public String accountNumber;
     public String billingInformation;
     public String description;
-    public String password;
 
     /**
      * default constructor required by hibernate
@@ -30,8 +30,9 @@ public class Organization {
     /**
      *  Bussiness Constructor
      */
-    public Organization(String organizationID, String organizationName, String organizationAddress, String contactPersonName, String contactPersonEmail, String accountNumber, String billingInformation, String description) {
-        this.organizationID = organizationID;
+    public Organization(String organizationId,String organizationNumber, String organizationName, String organizationAddress, String contactPersonName, String contactPersonEmail, String accountNumber, String billingInformation, String description) {
+        this.organizationId = organizationId;
+        this.organizationNumber = organizationNumber;
         this.name = organizationName;
         this.address = organizationAddress;
         this.contactPersonName = contactPersonName;

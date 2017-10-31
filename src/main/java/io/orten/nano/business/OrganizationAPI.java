@@ -43,8 +43,8 @@ public class OrganizationAPI {
     @GET
     @Path("/getorg")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrg(@QueryParam("orgID") String orgID){
-        return new OrganizationService().get(orgID);
+    public Response getOrg(@QueryParam("organizationId") String organizationId){
+        return new OrganizationService().get(organizationId);
     }
 
     /**

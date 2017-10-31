@@ -34,10 +34,10 @@ public class OrganizationService {
         }
     }
 
-    public Response get(String orgID)
+    public Response get(String organizationId)
     {
         try {
-            Organization org = Database.getOrganization(orgID);
+            Organization org = Database.getOrganization(organizationId);
             if (org!=null) {
                 return Response.status(HttpServletResponse.SC_OK).entity(org).build();
             }else {
