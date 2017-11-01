@@ -1,6 +1,6 @@
 package io.orten.nano.impl;
 
-import io.orten.nano.model.Activity;
+import io.orten.nano.model.Event;
 import io.orten.nano.util.Database;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,23 +9,23 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityService {
+public class EventService {
 
-       public static List<Activity> activityList = new ArrayList<Activity>();
+    public static List<Event> eventList = new ArrayList<Event>();
 
     /**
      *
-     * @param activityId
-     * @return activity
+     * @param eventId
+     * @return event
      * @throws Exception
      */
-    public static Activity getActivityByActivityId(long activityId) throws Exception {
+    public static Event getEventByEventId(long eventId) throws Exception {
         Session session = null;
         try {
             session = Database.getSession();
-            Activity activity = session.get(Activity.class, activityId);
+            Event event = session.get(Event.class, eventId);
             session.close();
-            return activity;
+            return event;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -36,19 +36,19 @@ public class ActivityService {
     /**
      *
      * @param projectId
-     * @return activity
+     * @return event
      * @throws Exception
      */
-    public static List<Activity> getActivityByProjectId(long projectId) throws Exception {
+    public static List<Event> getEventsByProjectId(long projectId) throws Exception {
 
         Session session = null;
         try {
             session = Database.getSession();
-            Query query = session.createQuery("from Activity where projectId like :projectId");
+            Query query = session.createQuery("from Event where projectId = :projectId");
             query.setParameter("projectId", projectId);
-            List<Activity> activities = query.list();
+            List<Event> events = query.list();
             session.close();
-            return activities;
+            return events;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -58,16 +58,16 @@ public class ActivityService {
 
     /**
      *
-     * @return list of Activities
+     * @return list of Events
      * @throws Exception
      */
-    public static List<Activity> getListOfActivities() throws Exception {
+    public static List<Event> getListOfEvents() throws Exception {
         Session session = null;
         try {
             session = Database.getSession();
-            List Activities = session.createQuery("from Activity").list();
+            List Events = session.createQuery("from Event").list();
             session.close();
-            return Activities;
+            return Events;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -77,19 +77,19 @@ public class ActivityService {
 
     /**
      *
-     * @param activityTitle
-     * @return Search Activities
+     * @param eventTitle
+     * @return Search Events
      * @throws Exception
      */
-    public static List getActivitiesByActivityTitle(String activityTitle) throws Exception {
+    public static List getEventsByEventTitle(String eventTitle) throws Exception {
         Session session = null;
         try {
             session = Database.getSession();
-            Query query = session.createQuery("from Activity where activityTitle like :activityTitle");
-            query.setParameter("activityTitle", "%" + activityTitle + "%");
-            List<Activity> activities = query.list();
+            Query query = session.createQuery("from Event where eventTitle like :eventTitle");
+            query.setParameter("eventTitle", "%" + eventTitle + "%");
+            List<Event> events = query.list();
             session.close();
-            return activities;
+            return events;
         } catch (HibernateException e) {
             throw e;
         } finally {
@@ -99,16 +99,16 @@ public class ActivityService {
 
     /**
      *
-     * @param activity
+     * @param event
      * @throws Exception
      */
-    public static void saveActivity(Activity activity) throws Exception {
+    public static void saveEvent(Event event) throws Exception {
         Session session = null;
         Transaction tx = null;
         try {
             session = Database.getSession();
             tx = session.beginTransaction();
-            session.saveOrUpdate(activity);
+            session.save(event);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -120,17 +120,40 @@ public class ActivityService {
 
     /**
      *
-     * @param activityId
+     * @param event
      * @throws Exception
      */
-    public static void deleteActivity(Long activityId) throws Exception {
+    public static void updateEvent(Event event) throws Exception {
         Session session = null;
         Transaction tx = null;
         try {
             session = Database.getSession();
             tx = session.beginTransaction();
-            Activity activity = session.get(Activity.class, activityId);
-            session.delete(activity);
+
+            session.update(event);
+
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+    /**
+     *
+     * @param eventId
+     * @throws Exception
+     */
+    public static void deleteEvent(Long eventId) throws Exception {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = Database.getSession();
+            tx = session.beginTransaction();
+            Event event = session.get(Event.class, eventId);
+            session.delete(event);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
