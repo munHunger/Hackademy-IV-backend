@@ -53,7 +53,7 @@ public class OrganizationService {
             List<Organization> organizations = new ArrayList<>();
             organizations = Database.getAllOrganizations();
             if (!(organizations.isEmpty())){
-            return Response.status(HttpServletResponse.SC_FOUND).entity(organizations).build();
+            return Response.status(HttpServletResponse.SC_OK).entity(organizations).build();
             } else {
                 return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
             }
