@@ -9,17 +9,17 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/")
+@Path("/users")
 public class UserAPI {
 
     public static List<User> userList = new ArrayList<User>();
 
     @GET
-    @Path("/getuser/{userID}")
+    @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@PathParam("userID") long userID) {
+    public Response getUserById(@PathParam("userId") long userId) {
         try {
-            User user = UserService.getUser(userID);
+            User user = UserService.getUserById(userId);
             return Response.status(HttpServletResponse.SC_OK).entity(user).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
@@ -27,7 +27,6 @@ public class UserAPI {
     }
 
     @GET
-    @Path("/getlistofusers")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
         try {
@@ -39,11 +38,11 @@ public class UserAPI {
     }
 
     @GET
-    @Path("/getlistofusersbyusername/{userName}")
+    @Path("/userName/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsersByName(@PathParam("userName") String userName) {
+    public Response getUsersByUserName(@PathParam("userName") String userName) {
         try {
-            List<User> users = UserService.getUsersByName(userName);
+            List<User> users = UserService.getUsersByUserName(userName);
             return Response.status(HttpServletResponse.SC_OK).entity(users).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
@@ -51,8 +50,8 @@ public class UserAPI {
     }
 
     @POST
-    @Path("/saveuser")
-    public Response saveUser(User user) {
+    @Consumes(MediaType.APPLICATION_JSON)
+        public Response saveUser(User user) {
         try {
             UserService.saveUser(user);
             return Response.status(HttpServletResponse.SC_OK).build();
@@ -61,11 +60,29 @@ public class UserAPI {
         }
     }
 
-    @DELETE
-    @Path("/deleteuser/{userID}")
-    public Response deleteUser(@PathParam("userID") Long  userID) {
+    @PUT
+    @Path("/{userid}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateEvent(User user, @PathParam("userid") Long userId) {
         try {
-            UserService.deleteUser(userID);
+            if(user.getUserId() == userId) {
+                UserService.updateUser(user);
+                return Response.status(HttpServletResponse.SC_OK).build();
+            }
+            else {
+                return Response.status(HttpServletResponse.SC_BAD_REQUEST).build();
+            }
+
+        } catch (Exception e) {
+            return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{userid}")
+    public Response deleteUser(@PathParam("userid") Long  userId) {
+        try {
+            UserService.deleteUser(userId);
             return Response.status(HttpServletResponse.SC_OK).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();

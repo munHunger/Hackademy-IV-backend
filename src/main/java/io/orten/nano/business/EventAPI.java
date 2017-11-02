@@ -75,9 +75,9 @@ public class EventAPI {
     @PUT
     @Path("/{eventid}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateEvent(Event event, @PathParam("eventid") Long eventid) {
+    public Response updateEvent(Event event, @PathParam("eventid") Long eventId) {
         try {
-            if(event.getEventId() == eventid) {
+            if(event.getEventId() == eventId) {
                 EventService.updateEvent(event);
                 return Response.status(HttpServletResponse.SC_OK).build();
             }
