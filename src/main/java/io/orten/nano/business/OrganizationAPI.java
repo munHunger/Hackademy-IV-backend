@@ -10,15 +10,13 @@ import javax.ws.rs.core.Response;
 /**
  * end point for all Organization operations
  */
-@Path("/org")
-
+@Path("/organisations")
 public class OrganizationAPI {
 
     /**
      * saves an organization object in the database
      */
     @POST
-    @Path("/saveorg")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveOrganization(Organization org)
     {
@@ -29,7 +27,6 @@ public class OrganizationAPI {
      * updates an organization object that already saved in the database
      */
     @PUT
-    @Path("/updateorg")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateOrg(Organization org)
     {
@@ -41,10 +38,10 @@ public class OrganizationAPI {
      */
 
     @GET
-    @Path("/getorg")
+    @Path("{orgId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrg(@QueryParam("orgID") String orgID){
-        return new OrganizationService().get(orgID);
+    public Response getOrg(@PathParam("orgId") Long orgId){
+        return new OrganizationService().get(orgId);
     }
 
     /**
@@ -52,7 +49,6 @@ public class OrganizationAPI {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/getall")
     public Response getAllOrg(){
         return new OrganizationService().getAll();
     }
@@ -61,11 +57,9 @@ public class OrganizationAPI {
      * deletes an organization object from the database
      */
     @DELETE
-    @Consumes
-    @Path("/deleteorg")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteOrg(@QueryParam("orgID") String orgID){
-        return new OrganizationService().delete(orgID);
+    @Path("{orgId}")
+    public Response deleteOrg(@PathParam("orgId") Long orgId){
+        return new OrganizationService().delete(orgId);
     }
 }
 

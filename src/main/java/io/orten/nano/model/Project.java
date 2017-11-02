@@ -11,10 +11,12 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private long Id;
-    @Column(name = "projectId",unique = true)
-    private String projectId;
+    @Column(name = "projectNumber",unique = true)
+    private String projectNumber;
     @Column(name = "projectName")
     private String projectName;
+    @Column(name = "address")
+    private String address;
     @Column(name = "fromDate")
     private Date fromDate;
     @Column(name = "toDate")
@@ -29,8 +31,10 @@ public class Project {
     private double raisedFunding;
     @Column(name = "description")
     private String description;
-    @Column(name = "imageOrvideo")
-    private String imageOrvideo;
+    @Column(name = "mainImage")
+    private String mainImage;
+    @Column(name = "images")
+    private String images;
     @Column(name = "projectManager")
     private String projectManager;
     @Column(name = "nationalProject")
@@ -40,7 +44,7 @@ public class Project {
     @Column(name = "recurringProjectPublishingDate")
     private Date recurringProjectPublishingDate;
     @Column(name = "organizationId")
-    private String organizationId;
+    private long organizationId;
 
     public Project(){}
 
@@ -50,17 +54,21 @@ public class Project {
     public void setId(long id) {
         Id = id;
     }
-    public String getProjectId() {
-        return projectId;
-    }
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
+    public String getProjectNumber() {return projectNumber;}
+    public void setProjectNumber(String projectNumber) {
+        this.projectNumber = projectNumber;
     }
     public String getProjectName() {
         return projectName;
     }
-    public void setProjectName(String name) {
-        this.projectName = name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
     }
     public Date getFromDate() {
         return fromDate;
@@ -74,7 +82,9 @@ public class Project {
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
-    public float getLongitude() {return longitude;}
+    public float getLongitude() {
+        return longitude;
+    }
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
@@ -102,11 +112,17 @@ public class Project {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getImageOrvideo() {
-        return imageOrvideo;
+    public String getMainImage() {
+        return mainImage;
     }
-    public void setImageOrvideo(String imageOrvideo) {
-        this.imageOrvideo = imageOrvideo;
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+    public String getImages() {
+        return images;
+    }
+    public void setImages(String images) {
+        this.images = images;
     }
     public String getProjectManager() {
         return projectManager;
@@ -131,10 +147,10 @@ public class Project {
     }
     public void setRecurringProjectPublishingDate(Date recurringProjectPublishingDate) {
         this.recurringProjectPublishingDate = recurringProjectPublishingDate;}
-    public String getOrganizationId() {
+    public long getOrganizationId() {
         return organizationId;
     }
-    public void setOrganizationId(String organizationID) {
-        this.organizationId = organizationID;
+    public void setOrganizationId(long organizationId) {
+        this.organizationId = organizationId;
     }
 }

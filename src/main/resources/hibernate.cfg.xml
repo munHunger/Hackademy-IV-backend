@@ -11,7 +11,7 @@
         </property>
 
         <property name="hibernate.connection.url">
-            jdbc:mysql://localhost:3306/ortendb?useSSL=false
+            jdbc:mysql://18.221.31.52:3306/ortendb?useSSL=false
         </property>
 
         <property name="hibernate.connection.username">
@@ -27,8 +27,7 @@
 
         <mapping class="io.orten.nano.model.Organization"/>
         <mapping class="io.orten.nano.model.Project"/>
-        <mapping class="io.orten.nano.model.Donor"/>
-        <mapping class="io.orten.nano.model.Activity"/>
-
+        <mapping class="io.orten.nano.model.User"/>
+        <mapping class="io.orten.nano.model.Event"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,7 @@
 package io.orten.nano.business;
 
-import io.orten.nano.impl.ProjectService;
-import io.orten.nano.model.Project;
+import io.orten.nano.impl.EventService;
+import io.orten.nano.model.Event;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,54 +9,53 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/projects")
-public class ProjectAPI{
-    public static List<Project> projectList = new ArrayList<Project>();
+@Path("/events")
+public class EventAPI {
+
+    public static List<Event> eventList = new ArrayList<Event>();
 
     @GET
-    @Path("/{project_id}")
+    @Path("/{eventid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getprojectbyid(@PathParam("project_id") Long id) {
+    public Response getEventByEventId(@PathParam("eventid") Long id) {
         try {
-            Project project = ProjectService.getprojectbyid(id);
-            return Response.status(HttpServletResponse.SC_OK).entity(project).build();
-        } catch (Exception e) {
-            return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-
-
-    @GET
-    @Path("/number/{projectNumber}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getProjectByProjectId(@PathParam("projectNumber") String projectNumber) {
-        try {
-            Project project = ProjectService.getProjectByProjectId(projectNumber);
-            return Response.status(HttpServletResponse.SC_OK).entity(project).build();
+            Event event = EventService.getEventByEventId(id);
+            return Response.status(HttpServletResponse.SC_OK).entity(event).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GET
+    @Path("/projectid/{projectid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getListOfProjects() {
+    public Response getEventsByProjectId(@PathParam("projectid") long projectid) {
         try {
-            List<Project> projects = ProjectService.getListOfProjects();
-            return Response.status(HttpServletResponse.SC_OK).entity(projects).build();
+            List<Event> events = EventService.getEventsByProjectId(projectid);
+            return Response.status(HttpServletResponse.SC_OK).entity(events).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GET
-    @Path("/name/{projectName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProjectsByName(@PathParam("projectName") String projectName) {
+    public Response getListOfEvents() {
         try {
-            List<Project> projects = ProjectService.getProjectsByName(projectName);
-            return Response.status(HttpServletResponse.SC_OK).entity(projects).build();
+            List<Event> events = EventService.getListOfEvents();
+            return Response.status(HttpServletResponse.SC_OK).entity(events).build();
+        } catch (Exception e) {
+            return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/eventTitle/{eventTitle}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEventsByEventTitle(@PathParam("eventTitle") String eventTitle) {
+        try {
+            List<Event> events = EventService.getEventsByEventTitle(eventTitle);
+            return Response.status(HttpServletResponse.SC_OK).entity(events).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
         }
@@ -64,9 +63,9 @@ public class ProjectAPI{
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response saveProject(Project project) {
+    public Response saveEvent(Event event) {
         try {
-            ProjectService.saveProject(project);
+            EventService.saveEvent(event);
             return Response.status(HttpServletResponse.SC_OK).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();
@@ -74,12 +73,12 @@ public class ProjectAPI{
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/{eventid}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateProject(Project project, @PathParam("id") Long id) {
+    public Response updateEvent(Event event, @PathParam("eventid") Long eventId) {
         try {
-            if(project.getId() == id) {
-                ProjectService.updateProject(project);
+            if(event.getEventId() == eventId) {
+                EventService.updateEvent(event);
                 return Response.status(HttpServletResponse.SC_OK).build();
             }
             else {
@@ -92,10 +91,10 @@ public class ProjectAPI{
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response deleteProject(@PathParam("id") Long id) {
+    @Path("/{eventid}")
+    public Response deleteEvent(@PathParam("eventid") Long eventId) {
         try {
-            ProjectService.deleteProject(id);
+            EventService.deleteEvent(eventId);
             return Response.status(HttpServletResponse.SC_OK).build();
         } catch (Exception e) {
             return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).build();

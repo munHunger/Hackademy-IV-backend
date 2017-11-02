@@ -35,17 +35,17 @@ public class ProjectService {
 
     /**
      *
-     * @param projectID
+     * @param projectNumber
      * @return project
      * @throws Exception
      */
-    public static Project getProjectByProjectId(String projectID) throws Exception {
+    public static Project getProjectByProjectId(String projectNumber) throws Exception {
 
         Session session = null;
         try {
             session = Database.getSession();
-            Query query = session.createQuery("from Project where projectId like :projectID");
-            query.setParameter("projectID", projectID);
+            Query query = session.createQuery("from Project where projectNumber like :projectNumber");
+            query.setParameter("projectNumber", projectNumber);
             Project project = (Project) query.uniqueResult();
             session.close();
             return project;
@@ -108,7 +108,30 @@ public class ProjectService {
         try {
             session = Database.getSession();
             tx = session.beginTransaction();
-            session.saveOrUpdate(project);
+            session.save(project);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+    /**
+     *
+     * @param project
+     * @throws Exception
+     */
+    public static void updateProject(Project project) throws Exception {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = Database.getSession();
+            tx = session.beginTransaction();
+
+            session.update(project);
+
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -139,48 +162,4 @@ public class ProjectService {
             if (session != null) session.close();
         }
     }
-
-    //ToDO: Project and Doner has Many-to-Many relation so can not be handled as code added by Nijla
-    //ToDO: Project donor need to be refactored further.
-
-    /**
-     * saves a donor information of an specific project
-     * @param donor
-     * @throws Exception
-     */
-    /*public static void fundedBy(Donor donor,String projectID) throws Exception{
-        Session session = Database.getSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            Project project = getProject(projectID);
-            project.setDonor(donor);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            throw e;
-        } finally {
-            session.close();
-        }
-    }*/
-   /* public static List<Project> getFundedProjects(String donorID) throws Exception{
-        List<Project> fundedProjects = new ArrayList<>();
-        Session session = Database.getSession();
-        Transaction tx= null;
-        try{
-            tx =session.beginTransaction();
-            Query query = session.createQuery("from Project where donor.userID= :donorID");
-            query.setParameter("donorID",donorID);
-            fundedProjects=query.getResultList();
-            if (!(fundedProjects.isEmpty())){
-                return fundedProjects;
-            } else  return null;
-
-        }catch(HibernateException e){
-            if (tx != null) tx.rollback();
-            throw e;
-        }finally{
-            session.close();
-        }
-    }*/
 }
