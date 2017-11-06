@@ -22,7 +22,7 @@ public class SwishImplementation {
         return connection;
     }
     /*
-    *  g
+    *  For write input stream
      */
     public static void writeObject(InputStream input) throws IOException {
         BufferedReader in = null;
