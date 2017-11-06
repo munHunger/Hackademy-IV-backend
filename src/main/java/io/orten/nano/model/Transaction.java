@@ -29,7 +29,7 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name="donorID", insertable = false, updatable = false, nullable = false)
     @JsonIgnore
-    private Donor donor;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "projectID",nullable = false)
@@ -38,7 +38,7 @@ public class Transaction {
 
 
     public Transaction(){
-        //donor =new Donor();
+        //user =new User();
         //project=new Project();
 
     }

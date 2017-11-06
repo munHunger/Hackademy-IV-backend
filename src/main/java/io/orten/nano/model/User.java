@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "user")
-public class Donor {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Donor {
     @Column(name = "eventDate")
     private Date eventDate;
 
-    public Donor(){}
+    public User(){}
 
     public long getUserId() {
         return userId;
