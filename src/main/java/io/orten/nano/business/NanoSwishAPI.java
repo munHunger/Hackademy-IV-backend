@@ -28,7 +28,9 @@ public class NanoSwishAPI {
         String message="for donation";
         SwishPaymentRequestObject paymentRequestObject = new SwishPaymentRequestObject(payeePaymentReference, callbackUrl, payeeAlies, amount, message);
         Map swishResponse = api.sendPOST(paymentRequestObject);
-        ObjectMapper objectMapper = new ObjectMapper();
-        return Response.ok(objectMapper.writeValueAsString(swishResponse), MediaType.APPLICATION_JSON).build();
+       // ObjectMapper objectMapper = new ObjectMapper();
+        //return Response.ok(objectMapper.writeValueAsString(swishResponse), MediaType.APPLICATION_JSON).build();
+        return Response.ok(swishResponse).build();
+
     }
 }
