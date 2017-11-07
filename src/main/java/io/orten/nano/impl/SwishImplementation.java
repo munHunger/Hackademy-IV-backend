@@ -105,8 +105,7 @@ public class SwishImplementation {
                     entityUrlConnection.setRequestMethod("GET");
                     entityUrlConnection.setRequestProperty("Content-Type", "application/json");
                     entityUrlConnection.connect();
-                    return objectMapper.readValue(entityUrlConnection.getInputStream(), Map.class);
-
+                    return objectMapper.readValue(entityUrlConnection.getInputStream(),Map.class);
                 }else {
                     throw new RuntimeException("bad response from swish");
                 }
@@ -115,8 +114,6 @@ public class SwishImplementation {
                 writeObject(httpsURLConnection.getErrorStream());
                 throw new RuntimeException(ex);
             }
-
-
     }
 
 }
