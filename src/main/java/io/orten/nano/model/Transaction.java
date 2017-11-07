@@ -20,16 +20,11 @@ public class Transaction {
     @Column(name = "transactionDate")
     public Date transactionDate;
 
-    //@Column(name = "projectID")
-    //public int projectID;
-
-    //@Column(name = "donorID")
-    //public int donorID;
 
     @ManyToOne
     @JoinColumn(name="donorID", insertable = false, updatable = false, nullable = false)
     @JsonIgnore
-    private Donor donor;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "projectID",nullable = false)
@@ -38,9 +33,6 @@ public class Transaction {
 
 
     public Transaction(){
-        //donor =new Donor();
-        //project=new Project();
-
     }
 
 

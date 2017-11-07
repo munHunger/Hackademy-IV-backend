@@ -1,6 +1,6 @@
 package io.orten.nano.impl;
 
-import io.orten.nano.model.Donor;
+import io.orten.nano.model.User;
 import io.orten.nano.util.Database;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,9 +9,9 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DonorService {
+public class UserService {
 
-        public static List<Donor> donorList = new ArrayList<Donor>();
+        public static List<User> userList = new ArrayList<User>();
 
     /**
      *
@@ -62,11 +62,11 @@ public class DonorService {
             Session session = null;
             try {
                 session = Database.getSession();
-                Query query = session.createQuery("from Donor where userName like :userName");
+                Query query = session.createQuery("from User where userName like :userName");
                 query.setParameter("userName", "%" + userName + "%");
-                List<Donor> donors = query.list();
+                List<User> users = query.list();
                 session.close();
-                return donors;
+                return users;
             } catch (HibernateException e) {
                 throw e;
             } finally {
